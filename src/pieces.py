@@ -23,3 +23,114 @@ class Piece: #definition classe piece
 
 
 
+
+
+class King(Piece): #definition classe roi qui hérite de Piece
+    """ Classe définissant une piece caractérisée par :
+
+            - sa position
+            - son type (categorie)
+            - son propriétaire
+      """
+
+    def __init__(self): #constructeur
+        self.position = [0, 0]
+        self.value = 1000
+        self.player = 1
+
+    def __init__(self, position, player): #constructeur
+        self.position = position
+        self.value = 1000
+        self.player = player
+
+
+
+class Queen(Piece): #definition classe roi qui hérite de Piece
+    """ Classe définissant une piece caractérisée par :
+
+            - sa position
+            - son type (categorie)
+            - son propriétaire
+      """
+
+    def __init__(self): #constructeur
+        self.position = [0, 0]
+        self.value = 8
+        self.player = 1
+
+    def __init__(self, position, player): #constructeur
+        self.position = position
+        self.value = 8
+        self.player = player
+
+class Bishop(Piece): #definition classe roi qui hérite de Piece
+    """ Classe définissant une piece caractérisée par :
+
+            - sa position
+            - son type (categorie)
+            - son propriétaire
+      """
+
+    def __init__(self): #constructeur
+        self.position = [0, 0]
+        self.value = 3
+        self.player = 1
+
+    def __init__(self, position, player): #constructeur
+        self.position = position
+        self.value = 3
+        self.player = player
+
+class Pawn(Piece): #definition classe roi qui hérite de Piece
+    """ Classe définissant une piece caractérisée par :
+
+            - sa position
+            - son type (categorie)
+            - son propriétaire
+      """
+
+    def __init__(self): #constructeur
+        self.position = [0, 0]
+        self.value = 1
+        self.player = 1
+
+    def __init__(self, position, player): #constructeur
+        self.position = position
+        self.value = 1
+        self.player = player
+
+class Rook(Piece): #definition classe roi qui hérite de Piece
+    """ Classe définissant une piece caractérisée par :
+
+            - sa position
+            - son type (categorie)
+            - son propriétaire
+      """
+
+    def __init__(self): #constructeur
+        self.position = [0, 0]
+        self.value = 1
+        self.player = 1
+
+    def __init__(self, position, player): #constructeur
+        self.position = position
+        self.value = 1
+        self.player = player
+
+class Knight(Piece): #definition classe roi qui hérite de Piece
+    """ Classe définissant une piece caractérisée par :
+
+            - sa position
+            - son type (categorie)
+            - son propriétaire
+      """
+
+    def __init__(self): #constructeur
+        self.position = [0, 0]
+        self.value = 3
+        self.player = 1
+
+    def __init__(self, position, player): #constructeur
+        self.position = position
+        self.value = 3
+        self.player = player
