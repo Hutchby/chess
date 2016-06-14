@@ -3,6 +3,7 @@
 from tkinter import *
 from src.pieces import *
 
+
 def afficherTerrain(listPiece):
     window = Tk()
     window.title("Plateau de jeu")
