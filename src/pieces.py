@@ -9,16 +9,10 @@ class Piece:  # definition classe piece
             - son type (categorie)
             - son propriétaire
       """
-    has_moved = False
-    nbPieceP = [0, 0]
-
-    def __init__(self):  # constructeur
-        self.position = [0, 0]
-        self.player = 1
 
     def __init__(self, position, player):  # constructeur
+        has_moved = False
         self.position = position
-        Piece.nbPieceP[player - 1] += 1
         self.player = player
 
     def try_move(self, pos_a, pos_b) -> bool:  # pour verifier les coups joués
@@ -32,11 +26,6 @@ class Piece:  # definition classe piece
 
 class King(Piece):  # definition classe ROI qui hérite de Piece
 
-    def __init__(self):  # constructeur
-        Piece.__init__(self)
-        self.value = 1000
-        self.symbol = "K"
-
     def __init__(self, position, player):  # constructeur
         Piece.__init__(self, position, player)
         self.value = 1000
@@ -44,11 +33,6 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
 
 
 class Queen(Piece):  # definition classe REINE qui hérite de Piece
-
-    def __init__(self):  # constructeur
-        Piece.__init__(self)
-        self.value = 8
-        self.symbol = "Q"
 
     def __init__(self, position, player):  # constructeur
         Piece.__init__(self, position, player)
@@ -58,11 +42,6 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
 class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
-    def __init__(self):  # constructeur
-        self.value = 3
-        Piece.__init__(self)
-        self.symbol = "B"
-
     def __init__(self, position, player):  # constructeur
         Piece.__init__(self, position, player)
         self.value = 3
@@ -70,11 +49,6 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
 
 class Pawn(Piece):  # definition classe PION qui hérite de Piece
-
-    def __init__(self):  # constructeur
-        Piece.__init__(self)
-        self.value = 1
-        self.symbol = "P"
 
     def __init__(self, position, player):  # constructeur
         Piece.__init__(self, position, player)
@@ -84,11 +58,6 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
 
 class Rook(Piece):  # definition classe TOUR qui hérite de Piece
 
-    def __init__(self):  # constructeur
-        Piece.__init__(self)
-        self.value = 5
-        self.symbol = "R"
-
     def __init__(self, position, player):  # constructeur
         Piece.__init__(self, position, player)
         self.value = 5
@@ -96,11 +65,6 @@ class Rook(Piece):  # definition classe TOUR qui hérite de Piece
 
 
 class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
-
-    def __init__(self):  # constructeur
-        Piece.__init__(self)
-        self.value = 3
-        self.symbol = "Kn"
 
     def __init__(self, position, player):  # constructeur
         Piece.__init__(self, position, player)
