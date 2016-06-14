@@ -10,10 +10,12 @@ class Piece:  # definition classe piece
             - son propriétaire
       """
 
-    def __init__(self, position, player):  # constructeur
+    def __init__(self, position=(0, 0), player=1):  # constructeur
         has_moved = False
-        self.position = position
+        self.position = position  # un tuple c'est carrément plus propre et ca evite les conneries
         self.player = player
+        self.value = 0
+        self.symbol = "none"
 
     def try_move(self, pos_a, pos_b) -> bool:  # pour verifier les coups joués
         print("Faute de jeu! Tu bois!")
@@ -27,46 +29,46 @@ class Piece:  # definition classe piece
 class King(Piece):  # definition classe ROI qui hérite de Piece
 
     def __init__(self, position, player):  # constructeur
-        Piece.__init__(self, position, player)
+        super().__init__(position, player)
         self.value = 1000
-        self.symbol = "K"
+        self.symbol = "Ki"
 
 
 class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
     def __init__(self, position, player):  # constructeur
-        Piece.__init__(self, position, player)
+        super().__init__(position, player)
         self.value = 8
-        self.symbol = "Q"
+        self.symbol = "Qu"
 
 
 class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
     def __init__(self, position, player):  # constructeur
-        Piece.__init__(self, position, player)
+        super().__init__(position, player)
         self.value = 3
-        self.symbol = "B"
+        self.symbol = "Bs"
 
 
 class Pawn(Piece):  # definition classe PION qui hérite de Piece
 
     def __init__(self, position, player):  # constructeur
-        Piece.__init__(self, position, player)
+        super().__init__(position, player)
         self.value = 1
-        self.symbol = "P"
+        self.symbol = "Pn"
 
 
 class Rook(Piece):  # definition classe TOUR qui hérite de Piece
 
     def __init__(self, position, player):  # constructeur
-        Piece.__init__(self, position, player)
+        super().__init__(position, player)
         self.value = 5
-        self.symbol = "R"
+        self.symbol = "Rk"
 
 
 class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
     def __init__(self, position, player):  # constructeur
-        Piece.__init__(self, position, player)
+        super().__init__(position, player)
         self.value = 3
         self.symbol = "Kn"

@@ -8,16 +8,16 @@ def fonctionScore(listPiece, player):
 
     score = 0
 
-    for piece in listPiece:
+    for pos in listPiece:
 
-        valuePiece = piece.value
+        valuePiece = listPiece[pos].value
         valuePiece *= 10
 
         # controler le centre est important
-        if piece.symbol != "K":  # on controle pas le centre avec un roi
-            valuePiece += 8 - abs(3.5 - piece.position[0]) - abs(3.5 - piece.position[1])
+        if listPiece[pos].symbol != "K":  # on controle pas le centre avec un roi
+            valuePiece += 8 - abs(3.5 - pos[0]) - abs(3.5 - pos[1])
 
-        if (piece.player != player):
+        if (listPiece[pos].player != player):
             valuePiece *= -1
 
         score += valuePiece

@@ -21,16 +21,16 @@ def isCheck(listPiece, player):
 
 
 def newSetOfPieces():
-    listPiece = []
+    dict_piece = {}
     for i in [-1, 1]:
         for j in [-1, 1]:
-            listPiece.append(Rook((int(3.5 + j * 3.5), int(3.5 + i * 3.5)), (3 + i) / 2))
-            listPiece.append(Knight([int(3.5 + j * 2.5), int(3.5 + i * 3.5)], ((3 + i) / 2)))
-            listPiece.append(Bishop([int(3.5 + j * 1.5), int(3.5 + i * 3.5)], ((3 + i) / 2)))
+            dict_piece[int(3.5 + j * 3.5), int(3.5 + i * 3.5)] = Rook((3 + i) / 2, i)
+            dict_piece[int(3.5 + j * 2.5), int(3.5 + i * 3.5)] = Knight((3 + i) / 2, i)
+            dict_piece[int(3.5 + j * 1.5), int(3.5 + i * 3.5)] = Bishop((3 + i) / 2, i)
 
         for j in range(0, 8):
-            listPiece.append(Pawn([j, int(3.5 + i * 2.5)], ((3 + i) / 2)))
+            dict_piece[j, int(3.5 + i * 2.5)] = Pawn((3 + i) / 2, i)
 
-        listPiece.append(Queen([int(3.5 + i * 0.5), int(3.5 + i * 3.5)], ((3 + i) / 2)))
-        listPiece.append(King([int(3.5 - i * 0.5), int(3.5 + i * 3.5)], ((3 + i) / 2)))
-    return listPiece
+        dict_piece[int(3.5 + i * 0.5), int(3.5 + i * 3.5)] = Queen((3 + i) / 2, i)
+        dict_piece[int(3.5 - i * 0.5), int(3.5 + i * 3.5)] = King((3 + i) / 2, i)
+    return dict_piece
