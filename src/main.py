@@ -1,9 +1,5 @@
 #! user/bin/env python3
-
-
 # gestion globale, variables globales et autres
-
-from operator import itemgetter
 
 from src.ai import *
 from src.game import *
@@ -13,14 +9,18 @@ from src.rules import *
 print("Hello World")
 
 listPiece = newSetOfPieces()
-print(listPiece)
 
 for pos in listPiece:
-    print(pos, type(listPiece[pos]), listPiece[pos].player)
+    print(pos, listPiece[pos].symbol, ", ", listPiece[pos].player)
 
 afficherTerrain(listPiece)
 
 print(len(listPiece))
+
+try:
+    print("test: ", listPiece[5,5])
+except Exception as excep:
+    print("listPiece[5,5] not exist")
 
 for i in range(8, 0):
     print(i)
