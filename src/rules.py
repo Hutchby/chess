@@ -24,13 +24,13 @@ def newSetOfPieces():
     dict_piece = {}
     for i in [-1, 1]:
         for j in [-1, 1]:
-            dict_piece[int(3.5 + j * 3.5), int(3.5 + i * 3.5)] = Rook((3 + i) / 2, i)
-            dict_piece[int(3.5 + j * 2.5), int(3.5 + i * 3.5)] = Knight((3 + i) / 2, i)
-            dict_piece[int(3.5 + j * 1.5), int(3.5 + i * 3.5)] = Bishop((3 + i) / 2, i)
+            dict_piece[int(3.5 + j * 3.5), int(3.5 + i * 3.5)] = Rook(i)
+            dict_piece[int(3.5 + j * 2.5), int(3.5 + i * 3.5)] = Knight(i)
+            dict_piece[int(3.5 + j * 1.5), int(3.5 + i * 3.5)] = Bishop(i)
 
         for j in range(0, 8):
-            dict_piece[j, int(3.5 + i * 2.5)] = Pawn((3 + i) / 2, i)
+            dict_piece[j, int(3.5 + i * 2.5)] = Pawn(i)
 
-        dict_piece[int(3.5 + i * 0.5), int(3.5 + i * 3.5)] = Queen((3 + i) / 2, i)
-        dict_piece[int(3.5 - i * 0.5), int(3.5 + i * 3.5)] = King((3 + i) / 2, i)
+        dict_piece[int(3.5 + i * 0.5), int(3.5 + i * 3.5)] = Queen(i)
+        dict_piece[int(3.5 - i * 0.5), int(3.5 + i * 3.5)] = King(i)
     return dict_piece

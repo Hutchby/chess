@@ -18,7 +18,7 @@ afficherTerrain(listPiece)
 print(len(listPiece))
 
 try:
-    print("test: ", listPiece[5,5])
+    print("test: ", listPiece[5, 5])
 except Exception as excep:
     print("listPiece[5,5] not exist")
 
