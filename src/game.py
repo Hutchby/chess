@@ -7,13 +7,48 @@ def move_input():
     return (x1, y1), (x2, y2)
 
 
+def h_turn(player):
+    print("Turn: Player ", player)
+    move = move_input()
+    print(move)
+    return False
+
+
+def c_turn(player):
+    print("Turn: Computer ", player)
+    return False
+
+
 def hh_game():
     finish = True
+    player = 1
     while finish:
-        print("Turn: Player 1")
-        move = move_input()
-        print(move)
+        h_turn(player)
+        player = -player  # swap player turn
         finish = False
+
+
+def cc_game():
+    finish = True
+    player = 1
+    while finish:
+        c_turn(player)
+        player = -player  # swap player turn
+        finish = False
+    return False
+
+
+def hc_game():
+    finish = True
+    h_is = 1
+    player = 1
+    while finish:
+        if h_is== player:
+            finish = h_turn(player)
+        else:
+            finish = c_turn(player)
+        player = -player  # swap player turn
+    return False
 
 
 def new_game(game_type):

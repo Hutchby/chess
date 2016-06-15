@@ -2,18 +2,20 @@
 
 from tkinter import *
 
+from src.rules import *
+
 
 def afficherTerrain(listPiece):
     window = Tk()
     window.title("Plateau de jeu")
     canvas = Canvas(window, width=800, height=800)
-    canvas.create_text(45, 755, text='0')
-    canvas.create_text(755, 675, text='0')
-    for i in range(1, 8):
-        canvas.create_line(90 * i, 0, 90 * i, 720)
-        canvas.create_text(i * 90 + 45, 755, text=i)
-        canvas.create_text(755, 720 - i * 90 - 45, text=i)
-        canvas.create_line(0, 90 * i, 720, 90 * i)
+    for n in range(1, 8):
+        canvas.create_line(90 * n, 0, 90 * n, 720)
+        canvas.create_line(0, 90 * n, 720, 90 * n)
+
+    for n in range(8):
+        canvas.create_text(n * 90 + 45, 755, text=itoa[n + 1])
+        canvas.create_text(755, 720 - n * 90 - 45, text=8 - n)
 
     for position in listPiece:
         if listPiece[position].player == 1:
