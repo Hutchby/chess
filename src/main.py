@@ -1,4 +1,4 @@
-#! user/bin/env python3
+#!/usr/bin/env python3
 # gestion globale, variables globales et autres
 
 from src.ai import *
