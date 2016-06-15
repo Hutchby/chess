@@ -11,7 +11,7 @@ print("Hello World")
 listPiece = newSetOfPieces()
 
 for pos in listPiece:
-    print(pos, listPiece[pos].symbol, ", ", listPiece[pos].player)
+    print(pos, listPiece[pos], ", ", listPiece[pos].player)
 
 afficherTerrain(listPiece)
 

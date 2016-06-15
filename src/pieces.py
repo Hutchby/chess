@@ -16,6 +16,9 @@ class Piece:  # definition classe piece
         self.value = 0
         self.symbol = "none"
 
+    def __repr__(self):
+        return Piece
+
     def try_move(self, pos_a, pos_b) -> bool:  # pour verifier les coups joués
         print("Faute de jeu! Tu bois!")
         return False
@@ -32,6 +35,9 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
         self.value = 1000
         self.symbol = "Ki"
 
+    def __repr__(self):
+        return "King"
+
 
 class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
@@ -39,6 +45,9 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
         super().__init__(player)
         self.value = 8
         self.symbol = "Qu"
+
+    def __repr__(self):
+        return "Queen"
 
 
 class Bishop(Piece):  # definition classe FOU qui hérite de Piece
@@ -48,6 +57,9 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
         self.value = 3
         self.symbol = "Bs"
 
+    def __repr__(self):
+        return "Bishop"
+
 
 class Pawn(Piece):  # definition classe PION qui hérite de Piece
 
@@ -55,6 +67,9 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
         super().__init__(player)
         self.value = 1
         self.symbol = "Pn"
+
+    def __repr__(self):
+        return "Pawn"
 
 
 class Rook(Piece):  # definition classe TOUR qui hérite de Piece
@@ -64,6 +79,9 @@ class Rook(Piece):  # definition classe TOUR qui hérite de Piece
         self.value = 5
         self.symbol = "Rk"
 
+    def __repr__(self):
+        return "Rook"
+
 
 class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
@@ -71,3 +89,6 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
         super().__init__(player)
         self.value = 3
         self.symbol = "Kn"
+
+    def __repr__(self):
+        return "Knight"
