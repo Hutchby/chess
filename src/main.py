@@ -8,24 +8,25 @@ from src.rules import *
 
 print("Hello World")
 
-listPiece = newSetOfPieces()
+pieces = newSetOfPieces()
 
-for pos in listPiece:
-    print(pos, listPiece[pos], ", ", listPiece[pos].player)
+for pos in pieces:
+    print(pos, pieces[pos], ", ", pieces[pos].player)
 
-afficherTerrain(listPiece)
+afficherTerrain(pieces)
+afficherTerrain(pieces, -1)
 
-print(len(listPiece))
+print(len(pieces))
 
 try:
-    print("test: ", listPiece[5, 5])
+    print("test: ", pieces[5, 5])
 except Exception as excep:
-    print("listPiece[5,5] not exist")
+    print("pieces[5,5] not exist")
 
 for i in range(8, 0):
     print(i)
 
-print(fonctionScore(listPiece, 1))
+print("score:", fonctionScore(pieces, 1))
 game_type = -1
 
 while game_type < 0 or 2 < game_type:

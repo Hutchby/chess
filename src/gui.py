@@ -5,7 +5,7 @@ from tkinter import *
 from src.rules import *
 
 
-def afficherTerrain(listPiece):
+def afficherTerrain(pieces, player=1):
     window = Tk()
     window.title("Plateau de jeu")
     canvas = Canvas(window, width=800, height=800)
@@ -15,14 +15,19 @@ def afficherTerrain(listPiece):
 
     for n in range(8):
         canvas.create_text(n * 90 + 45, 755, text=itoa[n + 1])
-        canvas.create_text(755, 720 - n * 90 - 45, text=8 - n)
+        if player == 1:
+            canvas.create_text(755, 675 - n * 90, text=n + 1)
+        else:
+            canvas.create_text(755, 675 - n * 90, text=8 - n)
 
-    for position in listPiece:
-        if listPiece[position].player == 1:
+    for pos in pieces:
+        if pieces[pos].player == -1:
             color = "blue"
         else:
             color = "red"
-        canvas.create_text(position[0] * 90 - 45, 720 - position[1] * 90 + 45, text=listPiece[position].symbol,
-                           fill=color)
+        if player == 1:
+            canvas.create_text(pos[0] * 90 - 45, 765 - pos[1] * 90, text=pieces[pos].symbol, fill=color)
+        else:
+            canvas.create_text(pos[0] * 90 - 45, pos[1] * 90 - 45, text=pieces[pos].symbol, fill=color)
     canvas.pack()
     window.mainloop()
