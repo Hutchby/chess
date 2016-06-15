@@ -22,7 +22,7 @@ def afficherTerrain(listPiece):
             color = "blue"
         else:
             color = "red"
-        canvas.create_text(position[0] * 90 + 45, 720 - position[1] * 90 - 45, text=listPiece[position].symbol,
+        canvas.create_text(position[0] * 90 - 45, 720 - position[1] * 90 + 45, text=listPiece[position].symbol,
                            fill=color)
     canvas.pack()
     window.mainloop()
