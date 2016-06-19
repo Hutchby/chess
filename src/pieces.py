@@ -7,7 +7,7 @@ def there_is_something(d, x, y):
     try:
         res = d[x, y]
     except Exception:
-        return -1
+        return False
     return d[x, y]
 
 

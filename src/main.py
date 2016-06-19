@@ -6,35 +6,36 @@ from src.game import *
 from src.gui import *
 from src.rules import *
 
-print("Hello World")
-
 pieces = newSetOfPieces()
 
 for pos in pieces:
     print(pos, pieces[pos], ", ", pieces[pos].player)
 
-afficherTerrain(pieces)
-afficherTerrain(pieces, -1)
-
+pieces[5 , 2] = Queen(1)
+pieces[(1,3)] = pieces.pop((1,1))
 print(len(pieces))
+afficherTerrain(pieces)
+# afficherTerrain(pieces, -1)
 
 try:
     print("test: ", pieces[5, 5])
 except Exception as excep:
     print("pieces[5,5] not exist")
 
-for i in range(8, 0):
-    print(i)
 
 print("score:", fonctionScore(pieces, 1))
 game_type = -1
 
 while game_type < 0 or 2 < game_type:
     game_type = input("""What kind of game? (H:human, C: computer)
-        HvC: 0
+        # HvC: 0
         HvH: 1
         CvC: 2
     your choice: """)
     game_type = int(game_type)
     print(game_type, type(game_type))
-new_game(game_type)
+new_game(game_type, pieces)
+
+type(pieces[5,2])
+pieces[5,2].value
+print(isCheck(pieces, 1))

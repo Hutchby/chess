@@ -1,5 +1,3 @@
-# Je suis pas sur que celui la soit necessaire
-
 from src.pieces import *
 
 itoa = {}
@@ -8,21 +6,50 @@ for i in range(8):
 print(itoa)
 
 
-def isCheck(pieces, player):
-    for piece in pieces:
-        x = piece.position[0]
-        y = piece.position[1]
-        if piece is King:
-            if piece.player == player:
-                for i in range(x, 8):
-                    for piece2 in pieces:
-                        if piece2.position[0] == i & piece2.position[1] == y:
-                            if piece2 is Queen or piece2 is Rook:
-                                return True
-                            else:
-                                break
+def isCheck(dict_piece, player):
 
-    return False
+    # on récupère les rois
+    state = 0
+    for roi in dict_piece:
+        if type(dict_piece[roi]) == King:
+            print(dict_piece[roi])
+            for x in range(roi[0]+1, 9):
+                if there_is_something(dict_piece, x, roi[1]):
+                    if type(dict_piece[x, roi[1]]) == Queen or type(dict_piece[x, roi[1]]) == Rook:
+                        if dict_piece[x, roi[1]].player != dict_piece[roi].player:
+                            if dict_piece[roi].player == player:
+                                return dict_piece[roi].player
+                            state = dict_piece[roi].player
+                    break
+
+            for x in range(roi[0]-1, 0, -1):
+                if there_is_something(dict_piece, x, roi[1]):
+                    if type(dict_piece[x, roi[1]]) == Queen or type(dict_piece[x, roi[1]]) == Rook:
+                        if dict_piece[x, roi[1]].player != dict_piece[roi].player:
+                            if dict_piece[roi].player == player:
+                                return dict_piece[roi].player
+                            state = dict_piece[roi].player
+                    break
+
+            for y in range(roi[1]+1, 9):
+                if there_is_something(dict_piece, roi[0], y):
+                    if type(dict_piece[roi[0], y]) == Queen or type(dict_piece[roi[0], y]) == Rook:
+                        if dict_piece[roi[0], y].player != dict_piece[roi].player:
+                            if dict_piece[roi].player == player:
+                                return dict_piece[roi].player
+                            state = dict_piece[roi].player
+                    break
+
+
+            for y in range(roi[1]-1, 0, -1):
+                if there_is_something(dict_piece, roi[0], y):
+                    if type(dict_piece[roi[0], y]) == Queen or type(dict_piece[roi[0], y]) == Rook:
+                        if dict_piece[roi[0], y].player != dict_piece[roi].player:
+                            if dict_piece[roi].player == player:
+                                return dict_piece[roi].player
+                            state = dict_piece[roi].player
+                    break
+    return state
 
 
 def newSetOfPieces():
