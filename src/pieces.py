@@ -3,12 +3,21 @@
 # verifier que le coup est possible
 
 
+def there_is_something(d, x, y):
+    try:
+        res = d[x, y]
+    except Exception:
+        return -1
+    return d[x, y]
+
+
+"""
+    Classe définissant une piece caractérisée par :
+        - sa position
+        - son type (categorie)
+        - son propriétaire
+"""
 class Piece:  # definition classe piece
-    """ Classe définissant une piece caractérisée par :
-            - sa position
-            - son type (categorie)
-            - son propriétaire
-      """
 
     def __init__(self, player=1):  # constructeur
         has_moved = False
@@ -24,8 +33,9 @@ class Piece:  # definition classe piece
         return False
 
     def list_move(self):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
         print("Je retourne pas les possibilité pour le moment alors bon...")
-        return 0, 0
+        return l
 
 
 class King(Piece):  # definition classe ROI qui hérite de Piece
@@ -70,6 +80,12 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
 
     def __repr__(self):
         return "Pawn"
+
+    def list_move(self):  # list les coup possible pour une piece donnée
+        l = []
+#        if there_is_something(d,)
+        l.append()
+        return l
 
 
 class Rook(Piece):  # definition classe TOUR qui hérite de Piece

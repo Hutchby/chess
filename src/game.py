@@ -11,11 +11,13 @@ def h_turn(player):
     print("Turn: Player ", player)
     move = move_input()
     print(move)
+    # verifier que le coup est possible
     return False
 
 
 def c_turn(player):
     print("Turn: Computer ", player)
+    # calcule le coup a faire
     return False
 
 
@@ -43,7 +45,7 @@ def hc_game():
     h_is = 1
     player = 1
     while finish:
-        if h_is== player:
+        if h_is == player:
             finish = h_turn(player)
         else:
             finish = c_turn(player)
