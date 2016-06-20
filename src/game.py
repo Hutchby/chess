@@ -23,23 +23,26 @@ def h_turn(player, dico_piece):
         if there_is_something(dico_piece, move[1][0], move[1][1]):
             temp = dico_piece.pop(move[1])
 
-        dico_piece[move[1]] = dico_piece.pop(move[0])
+        # on vérifie que le joueur bouge bien sa piece
+        if dico_piece[move[0]].player == player:
+            dico_piece[move[1]] = dico_piece.pop(move[0])
 
-        # verifier que le coup est possible
+            # verifier que le coup est possible
 
 
-        # verifier si échec
-        check = isCheck(dico_piece, player)
-        if check == player:
-            print("Impossible de jouer ce coup")
-            dico_piece[move[0]] = dico_piece.pop(move[1])
-            if temp:
-                dico_piece[move[1]] = temp
+            # verifier si échec
+            check = isCheck(dico_piece, player)
+            if check == player:
+                print("Impossible de jouer ce coup")
+                dico_piece[move[0]] = dico_piece.pop(move[1])
+                if temp:
+                    dico_piece[move[1]] = temp
 
-        if check == -player:
-            print("Joueur ", -player, " en echec ! ")
-            break
-
+            if check == -player:
+                print("Joueur ", -player, " en echec ! ")
+                break
+        else:
+            print("Pas votre pièce")
 
 
     return False
@@ -53,11 +56,11 @@ def c_turn(player):
 
 def hh_game(dico_piece):
     finish = True
-    player = 1
+    player = -1
     while finish:
         h_turn(player, dico_piece)
         player = -player  # swap player turn
-        finish = False
+        finish = TRUE
 
 
 def cc_game():

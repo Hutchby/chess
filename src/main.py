@@ -11,8 +11,6 @@ pieces = newSetOfPieces()
 for pos in pieces:
     print(pos, pieces[pos], ", ", pieces[pos].player)
 
-pieces[5 , 2] = Queen(1)
-pieces[(1,3)] = pieces.pop((1,1))
 print(len(pieces))
 afficherTerrain(pieces)
 # afficherTerrain(pieces, -1)
