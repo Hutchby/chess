@@ -18,8 +18,6 @@ def h_turn(player, dico_piece):
         print("Turn: Player ", player)
         afficherTerrain(dico_piece, player)
         move = move_input()
-
-
         if there_is_something(dico_piece, move[1][0], move[1][1]):
             temp = dico_piece.pop(move[1])
 
@@ -28,7 +26,6 @@ def h_turn(player, dico_piece):
             dico_piece[move[1]] = dico_piece.pop(move[0])
 
             # verifier que le coup est possible
-
 
             # verifier si échec
             check = isCheck(dico_piece, player)
@@ -43,8 +40,6 @@ def h_turn(player, dico_piece):
                 break
         else:
             print("Pas votre pièce")
-
-
     return False
 
 

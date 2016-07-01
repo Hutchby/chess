@@ -1,6 +1,4 @@
-# TODO:
-#
-
+# TODO: comprendre le bug de la tour non définie
 from src.pieces import *
 
 itoa = {}
@@ -14,7 +12,7 @@ def isCheck(dict_piece, player):
     state = 0
     for roi in dict_piece:
         if type(dict_piece[roi]) == King:
-           # echecs dans les 4 directions principales
+            # echecs dans les 4 directions principales
             for x in range(roi[0]+1, 9):
                 if there_is_something(dict_piece, x, roi[1]):
                     if type(dict_piece[x, roi[1]]) == Queen or type(dict_piece[x, roi[1]]) == Rook:
@@ -41,7 +39,6 @@ def isCheck(dict_piece, player):
                                 return dict_piece[roi].player
                             state = dict_piece[roi].player
                     break
-
 
             for y in range(roi[1]-1, 0, -1):
                 if there_is_something(dict_piece, roi[0], y):
@@ -111,7 +108,7 @@ def isCheck(dict_piece, player):
                                             return dict_piece[roi].player
                                         state = dict_piece[roi].player
 
-            #echecs pions
+            # echecs pions
             for x in [-1, 1]:
                 piece = (roi[0] + x, roi[1] - dict_piece[roi].player)
                 if there_is_something(dict_piece, piece[0], piece[1]):
@@ -140,7 +137,7 @@ def newSetOfPieces():
     dict_piece = {}
     for i in [-1, 1]:
         for j in [-1, 1]:
-            dict_piece[int(4.5 + j * 3.5), int(4.5 + i * 3.5)] = Rook(i)
+            dict_piece[int(4.5 + j * 3.5), int(4.5 + i * 3.5)] = Piece(i)
             dict_piece[int(4.5 + j * 2.5), int(4.5 + i * 3.5)] = Knight(i)
             dict_piece[int(4.5 + j * 1.5), int(4.5 + i * 3.5)] = Bishop(i)
 

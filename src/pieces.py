@@ -1,6 +1,8 @@
 # TODO: 7 classes de piece, une original et 6 qui en hérite, attribut coordonée et 2
-# fonction de mouvement, une pour les possibilitées pour l'ia et l'autre pour
+# fonctions de mouvement, une pour les possibilitées pour l'ia et l'autre pour
 # verifier que le coup est possible
+
+from src.rules import isCheck
 
 
 def there_is_something(d, x, y):
@@ -17,10 +19,12 @@ def there_is_something(d, x, y):
         - son type (categorie)
         - son propriétaire
 """
+
+
 class Piece:  # definition classe piece
 
     def __init__(self, player=1):  # constructeur
-        has_moved = False
+        self.has_moved = False
         self.player = player
         self.value = 0
         self.symbol = "none"
@@ -32,7 +36,7 @@ class Piece:  # definition classe piece
         print("Faute de jeu! Tu bois!")
         return False
 
-    def list_move(self):  # list les coup possible pour une piece donnée
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
         print("Je retourne pas les possibilité pour le moment alors bon...")
         return l
@@ -47,6 +51,18 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
 
     def __repr__(self):
         return "King"
+
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+
+        for i in range(-1, 1):
+            for j in range(-1, 1):
+                if 2*i + j != 0:
+                    dico_piece_temp = dico_piece
+                    dico_piece_temp[(pos[0]+i, pos[1]+j)] = dico_piece_temp.pop(pos)
+                    if not isCheck(dico_piece_temp, self.player) == self.player:
+                        l.append((pos[0]+i, pos[1]+j))
+        return l
 
 
 class Queen(Piece):  # definition classe REINE qui hérite de Piece
@@ -81,10 +97,27 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
     def __repr__(self):
         return "Pawn"
 
-    def list_move(self):  # list les coup possible pour une piece donnée
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []
-#        if there_is_something(d,)
-        l.append()
+
+        # prendre en diagonale
+        for i in [-1, 1]:
+            position = (pos[0] + i, pos[1] - self.player)
+            if there_is_something(dico_piece, position[0], position[1]):
+                if dico_piece[position].player != self.player:
+                    l.append(position)
+
+        # avancer d'une case
+        position = (pos[0], pos[1] - self.player)
+        if there_is_something(dico_piece, position[0], position[1]):
+            return l
+        l.append(position)
+
+        # avancer de 2 cases
+        if not self.has_moved:
+            position = (position[0], position[1] - self.player)
+            if not there_is_something(dico_piece, position[0], position[1]):
+                l.append(position)
         return l
 
 
