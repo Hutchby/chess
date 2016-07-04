@@ -16,10 +16,10 @@ def afficherTerrain(pieces, player=-1):
     for n in range(8):
 
         if player == 1:
-            canvas.create_text(755, 675 - n * 90, text= 8 - n)
+            canvas.create_text(755, 675 - n * 90, text=8 - n)
             canvas.create_text(n * 90 + 45, 755, text=itoa[8 - n])
         else:
-            canvas.create_text(755, 675 - n * 90, text= n + 1)
+            canvas.create_text(755, 675 - n * 90, text=n + 1)
             canvas.create_text(n * 90 + 45, 755, text=itoa[n + 1])
 
     for pos in pieces:

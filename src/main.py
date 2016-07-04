@@ -3,8 +3,8 @@
 
 from src.ai import *
 from src.game import *
-from src.gui import *
 from src.rules import *
+
 
 pieces = newSetOfPieces()
 
@@ -12,7 +12,7 @@ for pos in pieces:
     print(pos, pieces[pos], ", ", pieces[pos].player)
 
 print(len(pieces))
-afficherTerrain(pieces)
+# afficherTerrain(pieces)
 # afficherTerrain(pieces, -1)
 
 try:
@@ -33,6 +33,7 @@ while game_type < 0 or 2 < game_type:
     game_type = int(game_type)
     print(game_type, type(game_type))
 new_game(game_type, pieces)
+
 
 type(pieces[5,2])
 pieces[5,2].value

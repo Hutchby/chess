@@ -1,6 +1,7 @@
 from src.gui import *
 from src.pieces import *
 
+
 def move_input():
     print("move (x1,y1) to (x2,y2):")
     x1 = int(input("x1: "))
@@ -28,7 +29,6 @@ def h_turn(player, dico_piece):
 
             # verifier que le coup est possible
 
-
             # verifier si échec
             check = isCheck(dico_piece, player)
             if check == player:
@@ -43,8 +43,6 @@ def h_turn(player, dico_piece):
         else:
             print("Pas votre pièce")
     dico_piece[move[1]].has_moved = True
-
-
     return False
 
 
