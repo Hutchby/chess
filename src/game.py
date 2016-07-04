@@ -19,7 +19,6 @@ def h_turn(player, dico_piece):
         afficherTerrain(dico_piece, player)
         move = move_input()
 
-
         if there_is_something(dico_piece, move[1][0], move[1][1]):
             temp = dico_piece.pop(move[1])
 
@@ -43,6 +42,7 @@ def h_turn(player, dico_piece):
                 break
         else:
             print("Pas votre pièce")
+    dico_piece[move[1]].has_moved = True
 
 
     return False
