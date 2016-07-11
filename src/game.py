@@ -30,7 +30,7 @@ def h_turn(player, dico_piece):
             # verifier que le coup est possible
 
             # verifier si échec
-            check = isCheck(dico_piece, player)
+            check = is_check(dico_piece, player)
             if check == player:
                 print("Impossible de jouer ce coup")
                 dico_piece[move[0]] = dico_piece.pop(move[1])

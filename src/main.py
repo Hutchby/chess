@@ -8,6 +8,8 @@ from src.rules import *
 
 pieces = newSetOfPieces()
 
+print("list des mouvements : ",pieces[(2,1)].list_move((2,1),pieces))
+
 for pos in pieces:
     print(pos, pieces[pos], ", ", pieces[pos].player)
 
@@ -37,4 +39,4 @@ new_game(game_type, pieces)
 
 type(pieces[5,2])
 pieces[5,2].value
-print(isCheck(pieces, 1))
+print(is_check(pieces, 1))

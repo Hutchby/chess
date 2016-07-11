@@ -32,10 +32,6 @@ class Piece:  # definition classe piece
     def __repr__(self):
         return Piece
 
-    def try_move(self, pos_a, pos_b) -> bool:  # pour verifier les coups joués
-        print("Faute de jeu! Tu bois!")
-        return False
-
     def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
         print("Je retourne pas les possibilité pour le moment alors bon...")
@@ -58,9 +54,8 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
         for i in range(-1, 1):
             for j in range(-1, 1):
                 if 2 * i + j != 0:
-                    dico_piece_temp = dico_piece
-                    dico_piece_temp[(pos[0] + i, pos[1] + j)] = dico_piece_temp.pop(pos)
-                    if not isCheck(dico_piece_temp, self.player) == self.player:
+                    new_pos = (pos[0] + i, pos[1] + j)
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
                         l.append((pos[0] + i, pos[1] + j))
         return l
 
@@ -75,6 +70,58 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
     def __repr__(self):
         return "Queen"
 
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+        print("Je retourne pas les possibilité pour le moment alors bon...")
+        return l
+
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+        for x in range(pos[0] + 1, 9):
+            new_pos = (x, pos[1])
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)):
+                    l.append((x, pos[1]))
+
+        for x in range(pos[0] - 1, 0, -1):
+            new_pos = (x, pos[1])
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)):
+                    l.append((x, pos[1]))
+
+            for y in range(pos[1] + 1, 9):
+                new_pos = (pos[0], y)
+                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                    if dico_piece[new_pos].player != self.player:
+                        if try_move(dico_piece, self.player, (pos, new_pos)):
+                            l.append(new_pos)
+                    break
+                else:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+
+            for y in range(pos[1] - 1, 0, -1):
+                new_pos = (pos[0], y)
+                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                    if dico_piece[new_pos].player != self.player:
+                        if try_move(dico_piece, self.player, (pos, new_pos)):
+                            l.append(new_pos)
+                    break
+                else:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append((pos[0], y))
+        return l
+
 
 class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
@@ -85,6 +132,59 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
     def __repr__(self):
         return "Bishop"
+
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+        print("Je retourne pas les possibilité pour le moment alors bon...")
+        return l
+
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+        for x in range(pos[0] + 1, 9):
+            new_pos = (x, pos[1])
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)):
+                    l.append((x, pos[1]))
+
+        # en haut à gauche
+        for x in range(pos[0] - 1, 0, -1):
+            new_pos = (x, pos[1])
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)):
+                    l.append((x, pos[1]))
+
+            for y in range(pos[1] + 1, 9):
+                new_pos = (pos[0], y)
+                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                    if dico_piece[new_pos].player != self.player:
+                        if try_move(dico_piece, self.player, (pos, new_pos)):
+                            l.append(new_pos)
+                    break
+                else:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+
+            for y in range(pos[1] - 1, 0, -1):
+                new_pos = (pos[0], y)
+                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                    if dico_piece[new_pos].player != self.player:
+                        if try_move(dico_piece, self.player, (pos, new_pos)):
+                            l.append(new_pos)
+                    break
+                else:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append((pos[0], y))
+        return l
 
 
 class Pawn(Piece):  # definition classe PION qui hérite de Piece
@@ -105,19 +205,22 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
             position = (pos[0] + i, pos[1] - self.player)
             if there_is_something(dico_piece, position[0], position[1]):
                 if dico_piece[position].player != self.player:
-                    l.append(position)
+                    if try_move(dico_piece, self.player, (pos, position)):
+                        l.append(position)
 
         # avancer d'une case
         position = (pos[0], pos[1] - self.player)
         if there_is_something(dico_piece, position[0], position[1]):
             return l
-        l.append(position)
+        if try_move(dico_piece, self.player, (pos, position)):
+            l.append(position)
 
         # avancer de 2 cases
         if not self.has_moved:
             position = (position[0], position[1] - self.player)
             if not there_is_something(dico_piece, position[0], position[1]):
-                l.append(position)
+                if try_move(dico_piece, self.player, (pos, position)):
+                    l.append(position)
         return l
 
 
@@ -131,6 +234,53 @@ class Rook(Piece):  # definition classe TOUR qui hérite de Piece
     def __repr__(self):
         return "Rook"
 
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+        for x in range(pos[0] + 1, 9):
+            new_pos = (x, pos[1])
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)):
+                    l.append((x, pos[1]))
+
+        for x in range(pos[0] - 1, 0, -1):
+            new_pos = (x, pos[1])
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)):
+                    l.append((x, pos[1]))
+
+            for y in range(pos[1] + 1, 9):
+                new_pos = (pos[0], y)
+                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                    if dico_piece[new_pos].player != self.player:
+                        if try_move(dico_piece, self.player, (pos, new_pos)):
+                            l.append(new_pos)
+                    break
+                else:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append(new_pos)
+
+            for y in range(pos[1] - 1, 0, -1):
+                new_pos = (pos[0], y)
+                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                    if dico_piece[new_pos].player != self.player:
+                        if try_move(dico_piece, self.player, (pos, new_pos)):
+                            l.append(new_pos)
+                    break
+                else:
+                    if try_move(dico_piece, self.player, (pos, new_pos)):
+                        l.append((pos[0], y))
+        return l
+
 
 class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
@@ -141,6 +291,25 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
     def __repr__(self):
         return "Knight"
+
+    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
+        l = []  # liste de tuple x/y
+
+        dep = [-2, -1, 1, 2]
+
+        for x in dep:
+            for y in dep:
+                if abs(x*y) == 2:
+                    new_pos = (pos[0] + x, pos[1] + y)
+                    if (new_pos[0]*new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
+                        if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                            if dico_piece[new_pos].player != self.player:
+                                if try_move(dico_piece, self.player, (pos, new_pos)):
+                                    l.append(new_pos)
+                        else:
+                            if try_move(dico_piece, self.player, (pos, new_pos)):
+                                l.append(new_pos)
+        return l
 
 
 def newSetOfPieces():
@@ -160,7 +329,13 @@ def newSetOfPieces():
     return dict_piece
 
 
-def isCheck(dict_piece, player):
+def try_move(dic_piece, player, move):
+    dico_temp = dic_piece
+    dico_temp[move[1]] = dico_temp.pop(move[0])
+    return player == is_check(dico_temp, player)
+
+
+def is_check(dict_piece, player):
     # on récupère les rois
     state = 0
     for roi in dict_piece:

@@ -1,4 +1,3 @@
-# TODO: comprendre le bug de la tour non définie
 from src.pieces import *
 
 itoa = {}
