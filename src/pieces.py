@@ -1,6 +1,7 @@
 # TODO: 7 classes de piece, une original et 6 qui en hérite, attribut coordonée et 2
 # fonctions de mouvement, une pour les possibilitées pour l'ia et l'autre pour
 # verifier que le coup est possible
+from copy import deepcopy
 
 from src.rules import *
 
@@ -299,14 +300,15 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
         for x in dep:
             for y in dep:
-                if abs(x*y) == 2:
+                if abs(x * y) == 2:
                     new_pos = (pos[0] + x, pos[1] + y)
-                    if (new_pos[0]*new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
+                    if (new_pos[0] * new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                             if dico_piece[new_pos].player != self.player:
                                 if try_move(dico_piece, self.player, (pos, new_pos)):
                                     l.append(new_pos)
                         else:
+                            # print("--", pos, new_pos)
                             if try_move(dico_piece, self.player, (pos, new_pos)):
                                 l.append(new_pos)
         return l
@@ -330,8 +332,14 @@ def newSetOfPieces():
 
 
 def try_move(dic_piece, player, move):
-    dico_temp = dic_piece
-    dico_temp[move[1]] = dico_temp.pop(move[0])
+    dico_temp = deepcopy(dic_piece)
+    print("dic    : ", dico_temp)
+    print("dic_tem: ", dico_temp)
+    print("move 0 ", move[0])
+    print("e:", dic_piece[(move[0])])
+    print("e:", dico_temp[(move[0])])
+    print("pieces : ", dico_temp.pop(move[0]))
+    print()
     return player == is_check(dico_temp, player)
 
 

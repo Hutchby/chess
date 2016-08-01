@@ -3,15 +3,16 @@
 
 from src.ai import *
 from src.game import *
-from src.rules import *
-
 
 pieces = newSetOfPieces()
+# """
+print("list des mouvements", pieces[(2, 1)].symbol, " : ")
+print(pieces[(2, 1)].list_move((2, 1), pieces))
 
-print("list des mouvements : ",pieces[(2,1)].list_move((2,1),pieces))
 
 for pos in pieces:
     print(pos, pieces[pos], ", ", pieces[pos].player)
+# """
 
 print(len(pieces))
 # afficherTerrain(pieces)
@@ -21,7 +22,6 @@ try:
     print("test: ", pieces[5, 5])
 except Exception as excep:
     print("pieces[5,5] not exist")
-
 
 print("score:", fonctionScore(pieces, 1))
 game_type = -1
@@ -36,7 +36,6 @@ while game_type < 0 or 2 < game_type:
     print(game_type, type(game_type))
 new_game(game_type, pieces)
 
-
-type(pieces[5,2])
-pieces[5,2].value
+type(pieces[5, 2])
+pieces[5, 2].value
 print(is_check(pieces, 1))
