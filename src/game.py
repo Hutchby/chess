@@ -1,3 +1,5 @@
+#TODO: valider que les coups dans la liste de coups autorisés
+
 from src.gui import *
 from src.pieces import *
 
@@ -25,24 +27,28 @@ def h_turn(player, dico_piece):
 
         # on vérifie que le joueur bouge bien sa piece
         if dico_piece[move[0]].player == player:
-            dico_piece[move[1]] = dico_piece.pop(move[0])
+            if (1): #dico_piece[move[0]].list_move(move[0], dico_piece) == move[1]:
+                dico_piece[move[1]] = dico_piece.pop(move[0])
 
             # verifier que le coup est possible
 
             # verifier si échec
-            check = is_check(dico_piece, player)
-            if check == player:
-                print("Impossible de jouer ce coup")
-                dico_piece[move[0]] = dico_piece.pop(move[1])
-                if temp:
-                    dico_piece[move[1]] = temp
+                check = is_check(dico_piece, player)
+                if check == player:
+                    print("Impossible de jouer ce coup")
+                    dico_piece[move[0]] = dico_piece.pop(move[1])
+                    dico_piece[move[1]].has_moved = True
+                    if temp:
+                        dico_piece[move[1]] = temp
 
-            if check == -player:
-                print("Joueur ", -player, " en echec ! ")
-                break
+                if check == -player:
+                    print("Joueur ", -player, " en echec ! ")
+                    break
+                else:
+                    print("Coup impossible !")
         else:
             print("Pas votre pièce")
-    dico_piece[move[1]].has_moved = True
+
     return False
 
 
