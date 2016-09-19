@@ -2,6 +2,7 @@
 
 from src.gui import *
 from src.pieces import *
+from src.ai import *
 
 
 def move_input():
@@ -52,9 +53,15 @@ def h_turn(player, dico_piece):
     return False
 
 
-def c_turn(player):
+def c_turn(player, dico_piece):
     print("Turn: Computer ", player)
+
     # calcule le coup a faire
+    move = mainIA(player, dico_piece)
+    dico_piece[move[1]] = dico_piece.pop(move[0])
+    dico_piece[move[1]].has_moved = True
+
+
     return False
 
 
@@ -67,25 +74,26 @@ def hh_game(dico_piece):
         finish = TRUE
 
 
-def cc_game():
+def cc_game(dico_piece):
     finish = True
     player = 1
     while finish:
-        c_turn(player)
+        c_turn(player, dico_piece)
         player = -player  # swap player turn
-        finish = False
+        #finish = False
+        afficherTerrain(dico_piece, player)
     return False
 
 
-def hc_game():
+def hc_game(dico_piece):
     finish = True
     h_is = 1
     player = 1
     while finish:
         if h_is == player:
-            finish = h_turn(player)
+            finish = h_turn(player, dico_piece)
         else:
-            finish = c_turn(player)
+            finish = c_turn(player, dico_piece)
         player = -player  # swap player turn
     return False
 
@@ -93,8 +101,10 @@ def hc_game():
 def new_game(game_type, dico_piece):
     if game_type == 0:
         print("Human vs Computer: The game can start")
+        hc_game(dico_piece)
     elif game_type == 2:
         print("Computer vs Computer: The game can start")
+        cc_game(dico_piece)
     elif game_type == 1:
         print("Human vs Human: The game can start")
         hh_game(dico_piece)

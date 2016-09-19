@@ -1,5 +1,5 @@
 from src.pieces import *
-
+import random
 
 def fonctionScore(pieces, player):
     """ donne un score en fonction des pieces et de la distance au centre afin de pousser les pieces a se combattre
@@ -22,4 +22,30 @@ def fonctionScore(pieces, player):
 
         score += valuePiece
 
+     # on regarde si on met en echec
+    if is_check(pieces, player):
+        score += 20
+
     return score
+
+def randomMove(pieces, player):
+    player_p = player
+    while player_p == player:
+        current_piece = random.choice(list(pieces.keys()))
+        player_p = pieces[current_piece].player
+        if pieces[current_piece].list_move(current_piece, pieces) == []:
+            player_p = player
+
+
+    move_ok = player
+    #while move_ok == player:
+    print("test", current_piece)
+    print("test", pieces[current_piece])
+    move = (current_piece, random.choice(pieces[current_piece].list_move(current_piece, pieces)))
+    return move
+
+def mainIA(player, pieces):
+    print("a moi de jouer")
+    # ia basique, random move
+    move = randomMove(pieces, player)
+    return move

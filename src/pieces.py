@@ -303,17 +303,13 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
             for y in dep:
                 if abs(x * y) == 2:
                     new_pos = (pos[0] + x, pos[1] + y)
-                    print("test:",i, new_pos)
                     if (new_pos[0] * new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
-                        print("test2:",i, new_pos)
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                             i = i +1
-                            print("test:",i, x, y)
                             if dico_piece[new_pos].player != self.player:
                                 if try_move(dico_piece, self.player, (pos, new_pos)):
                                     l.append(new_pos)
                         else:
-                            # print("--", pos, new_pos)
                             if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                                 l.append(new_pos)
         return l
@@ -337,7 +333,6 @@ def newSetOfPieces():
 # return 1 if move possible
 def try_move(dic_piece, player, move):
     dico_temp = deepcopy(dic_piece)
-    print("ok")
     dico_temp[move[1]] = dico_temp.pop(move[0])
     return player == is_check(dico_temp, player)
 
@@ -391,7 +386,7 @@ def is_check(dict_piece, player):
                 if roi[0] + x > 8 or roi[1] + x > 8:
                     break
                 piece = (roi[0] + x, roi[1] + x)
-                if there_is_something(dict_piece, piece[1], piece[2]):
+                if there_is_something(dict_piece, piece[0], piece[1]):
                     if type(dict_piece[piece]) == Queen or type(dict_piece[piece]) == Bishop:
                         if dict_piece[piece].player != dict_piece[roi].player:
                             if dict_piece[piece].player == player:
@@ -402,7 +397,7 @@ def is_check(dict_piece, player):
                 if roi[0] - x < 1 or roi[1] + x > 8:
                     break
                 piece = (roi[0] - x, roi[1] + x)
-                if there_is_something(dict_piece, piece[1], piece[2]):
+                if there_is_something(dict_piece, piece[0], piece[1]):
                     if type(dict_piece[piece]) == Queen or type(dict_piece[piece]) == Bishop:
                         if dict_piece[piece].player != dict_piece[roi].player:
                             if dict_piece[piece].player == player:
@@ -413,7 +408,7 @@ def is_check(dict_piece, player):
                 if roi[0] + x > 8 or roi[1] - x < 1:
                     break
                 piece = (roi[0] + x, roi[1] - x)
-                if there_is_something(dict_piece, piece[1], piece[2]):
+                if there_is_something(dict_piece, piece[0], piece[1]):
                     if type(dict_piece[piece]) == Queen or type(dict_piece[piece]) == Bishop:
                         if dict_piece[piece].player != dict_piece[roi].player:
                             if dict_piece[piece].player == player:
