@@ -39,13 +39,11 @@ def randomMove(pieces, player):
 
     move_ok = player
     #while move_ok == player:
-    print("test", current_piece)
-    print("test", pieces[current_piece])
     move = (current_piece, random.choice(pieces[current_piece].list_move(current_piece, pieces)))
+    print(pieces[current_piece], " ", move)
     return move
 
 def mainIA(player, pieces):
-    print("a moi de jouer")
     # ia basique, random move
     move = randomMove(pieces, player)
     return move

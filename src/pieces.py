@@ -57,8 +57,14 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
             for j in range(-1, 1):
                 if 2 * i + j != 0:
                     new_pos = (pos[0] + i, pos[1] + j)
-                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append((pos[0] + i, pos[1] + j))
+                    if (0 < new_pos[0] < 9) and (0 < new_pos[1] < 9):
+                        if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                            if dico_piece[new_pos].player != self.player:
+                                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                                    l.append((pos[0] + i, pos[1] + j))
+                        else:
+                            if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                                l.append((pos[0] + i, pos[1] + j))
         return l
 
 
@@ -326,8 +332,8 @@ def newSetOfPieces():
         for j in range(1, 9):
             dict_piece[j, int(4.5 + i * 2.5)] = Pawn(i)
 
-        dict_piece[int(4.5 + i * 0.5), int(4.5 + i * 3.5)] = Queen(i)
-        dict_piece[int(4.5 - i * 0.5), int(4.5 + i * 3.5)] = King(i)
+        dict_piece[int(4), int(4.5 + i * 3.5)] = Queen(i)
+        dict_piece[int(5), int(4.5 + i * 3.5)] = King(i)
     return dict_piece
 
 # return 1 if move possible

@@ -77,11 +77,14 @@ def hh_game(dico_piece):
 def cc_game(dico_piece):
     finish = True
     player = 1
+    i = 0
     while finish:
         c_turn(player, dico_piece)
         player = -player  # swap player turn
         #finish = False
-        afficherTerrain(dico_piece, player)
+        i = i + 1
+        if i % 1 == 0:
+            afficherTerrain(dico_piece, player)
     return False
 
 
