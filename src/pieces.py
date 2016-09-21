@@ -53,8 +53,8 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
     def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
 
-        for i in range(-1, 1):
-            for j in range(-1, 1):
+        for i in range(-1, 2):
+            for j in range(-1, 2):
                 if 2 * i + j != 0:
                     new_pos = (pos[0] + i, pos[1] + j)
                     if (0 < new_pos[0] < 9) and (0 < new_pos[1] < 9):
