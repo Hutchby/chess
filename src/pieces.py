@@ -65,6 +65,19 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
                         else:
                             if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                                 l.append((pos[0] + i, pos[1] + j))
+
+        if not self.has_moved:
+            for t in [-1, 1]: #-1 = gauche 1 = droite
+                if there_is_something(dico_piece, int(4.5 + t * 3.5), pos[1]):
+                    a = True
+                    for x in range(pos[1], int(4.5 + t * 3.5), t):
+                        if there_is_something(dico_piece, x, pos[1]):
+                            a = False
+                            break
+                    if a:
+                        if dico_piece[int(4.5 + t * 3.5), pos[1]] is Rook:
+                            if not dico_piece[int(4.5 + t * 3.5), pos[1]].has_moved:
+                                l.append((pos[0] + 2 * t, pos[1]))
         return l
 
 
@@ -77,11 +90,6 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
     def __repr__(self):
         return "Queen"
-
-    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
-        l = []  # liste de tuple x/y
-        print("Je retourne pas les possibilité pour le moment alors bon...")
-        return l
 
     def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
