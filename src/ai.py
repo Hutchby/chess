@@ -36,12 +36,18 @@ def randomMove(pieces, player):
         if pieces[current_piece].list_move(current_piece, pieces) == []:
             player_p = player
 
-
     move_ok = player
     #while move_ok == player:
     move = (current_piece, random.choice(pieces[current_piece].list_move(current_piece, pieces)))
     print(pieces[current_piece], " ", move)
     return move
+
+def viralSpread(pieces, player, diff):
+    list_move = list_all_move(pieces, player)
+
+    move = max()
+    return move
+
 
 def mainIA(player, pieces):
     # ia basique, random move

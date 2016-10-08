@@ -5,9 +5,10 @@ from src.ai import *
 from src.game import *
 
 pieces = newSetOfPieces()
+
 # """
 print("list des mouvements", pieces[(2, 1)].symbol, " : ")
-print(pieces[(2, 1)].list_move((2, 1), pieces))
+print(list_all_move(pieces, 1))
 
 # pieces[5, 5] = King(1)
 # print(pieces[5, 5].list_move((5,5), pieces))

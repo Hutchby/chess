@@ -3,7 +3,7 @@
 # verifier que le coup est possible
 
 from copy import deepcopy
-
+from src.utils import *
 from src.rules import *
 
 
@@ -475,3 +475,11 @@ def is_check(dict_piece, player):
                                         return dict_piece[roi].player
                                     state = dict_piece[roi].player
     return state
+
+def list_all_move(dico_piece, player):
+    list_move = []
+    for pos in dico_piece:
+        if dico_piece[pos].player == player:
+            for move in dico_piece[pos].list_move(pos, dico_piece):
+                list_move.append((pos, move))
+    return list_move
