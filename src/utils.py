@@ -11,7 +11,7 @@ def max_indice(list):
             maxi = i
     return maxi
 
-def max_indice(list):
+def min_indice(list):
     mini = 0
     for i in list:
         if list[i] < list[mini]:

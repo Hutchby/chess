@@ -1,7 +1,8 @@
 from src.pieces import *
 import random
 
-def fonctionScore(pieces, player):
+
+def fonction_score(pieces, player):
     """ donne un score en fonction des pieces et de la distance au centre afin de pousser les pieces a se combattre
     Le controle du centre est important aux echecs sauf si il s’agit du roi.
     """
@@ -22,13 +23,14 @@ def fonctionScore(pieces, player):
 
         score += valuePiece
 
-     # on regarde si on met en echec
+        # on regarde si on met en echec
     if is_check(pieces, player):
         score += 20
 
     return score
 
-def randomMove(pieces, player):
+
+def random_move(pieces, player):
     player_p = player
     while player_p == player:
         current_piece = random.choice(list(pieces.keys()))
@@ -37,19 +39,21 @@ def randomMove(pieces, player):
             player_p = player
 
     move_ok = player
-    #while move_ok == player:
+    # while move_ok == player:
     move = (current_piece, random.choice(pieces[current_piece].list_move(current_piece, pieces)))
     print(pieces[current_piece], " ", move)
     return move
 
-def viralSpread(pieces, player, diff):
-    list_move = list_all_move(pieces, player)
 
-    move = max()
+def viral_spread(pieces, player, diff):
+    list_move = list_all_move(pieces, player)
+    list_score = [0] * len(list_move)
+    list_nb_move = [0] * len(list_move)
+    move = list_move[max_indice(list_score)]
     return move
 
 
 def mainIA(player, pieces):
     # ia basique, random move
-    move = randomMove(pieces, player)
+    move = random_move(pieces, player)
     return move
