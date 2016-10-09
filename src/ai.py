@@ -16,7 +16,7 @@ def fonction_score(pieces, player):
 
         # controler le centre est important
         if pieces[pos].symbol != "K":  # on controle pas le centre avec un roi
-            valuePiece += 8 - abs(3.5 - pos[0]) - abs(3.5 - pos[1])
+            valuePiece += 8 - abs(4.5 - pos[0]) - abs(4.5 - pos[1])
 
         if pieces[pos].player != player:
             valuePiece *= -1
@@ -48,12 +48,20 @@ def random_move(pieces, player):
 def viral_spread(pieces, player, diff):
     list_move = list_all_move(pieces, player)
     list_score = [0] * len(list_move)
+    for i in range(0, len(list_move)):
+        first_move = list_move[i]
+        try_move(pieces, player, first_move)
+        pieces_temp = deepcopy(pieces)
+        pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
+        list_score[i] = fonction_score(pieces_temp, player)
+
     list_nb_move = [0] * len(list_move)
     move = list_move[max_indice(list_score)]
+    print(list_score)
     return move
 
 
 def mainIA(player, pieces):
     # ia basique, random move
-    move = random_move(pieces, player)
+    move = viral_spread(pieces, player, 0)
     return move

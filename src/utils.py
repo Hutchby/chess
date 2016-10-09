@@ -6,7 +6,7 @@ from src.ai import *
 
 def max_indice(list):
     maxi = 0
-    for i in list:
+    for i in range(0, len(list)):
         if list[i] > list[maxi]:
             maxi = i
     return maxi
