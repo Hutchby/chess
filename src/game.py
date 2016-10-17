@@ -40,11 +40,11 @@ def h_turn(player, dico_piece):
     return False
 
 
-def c_turn(player, dico_piece):
+def c_turn(player, dico_piece, ia_type, difficulty):
     print("Turn: Computer ", player)
 
     # calcule le coup a faire
-    move = mainIA(player, dico_piece)
+    move = mainIA(player, dico_piece, ia_type, difficulty)
     dico_piece[move[1]] = dico_piece.pop(move[0])
     dico_piece[move[1]].has_moved = True
 
@@ -65,8 +65,10 @@ def cc_game(dico_piece):
     finish = True
     player = 1
     i = 0
+    ia_type = "viral"
+    difficulty = 1
     while finish:
-        c_turn(player, dico_piece)
+        c_turn(player, dico_piece, ia_type, difficulty)
         player = -player  # swap player turn
         #finish = False
         i = i + 1

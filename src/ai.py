@@ -41,11 +41,11 @@ def random_move(pieces, player):
     move_ok = player
     # while move_ok == player:
     move = (current_piece, random.choice(pieces[current_piece].list_move(current_piece, pieces)))
-    print(pieces[current_piece], " ", move)
     return move
 
 
-def viral_spread(pieces, player, diff):
+def viral_spread(pieces, player, diff, nb_try):
+    diff = 3 # à enlever à terme
     list_move = list_all_move(pieces, player)
     list_score = [0] * len(list_move)
     for i in range(0, len(list_move)):
@@ -53,7 +53,14 @@ def viral_spread(pieces, player, diff):
         try_move(pieces, player, first_move)
         pieces_temp = deepcopy(pieces)
         pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
-        list_score[i] = fonction_score(pieces_temp, player)
+        for t in range(0, nb_try):
+            current_player = player
+            for s in range(0, diff):
+                current_player *= -1
+                move = random_move(pieces_temp, current_player)
+                pieces_temp[move[1]] = pieces_temp.pop(move[0])
+            list_score[i] += fonction_score(pieces_temp, player)
+        # list_score[i] = fonction_score(pieces_temp, player)
 
     list_nb_move = [0] * len(list_move)
     move = list_move[max_indice(list_score)]
@@ -61,7 +68,11 @@ def viral_spread(pieces, player, diff):
     return move
 
 
-def mainIA(player, pieces):
+def mainIA(player, pieces, ia_type, difficulty):
     # ia basique, random move
-    move = viral_spread(pieces, player, 0)
+    if ia_type == "random":
+        move = random_move(pieces, player, 0)
+    elif ia_type == "viral":
+        nb_try = 10
+        move = viral_spread(pieces, player, difficulty, nb_try)
     return move
