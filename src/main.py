@@ -6,6 +6,13 @@ from src.game import *
 
 pieces = newSetOfPieces()
 
+dict_test = {}
+dict_test[4,4] = Pawn(1)
+print("score : ",fonction_score(dict_test,1))
+print("score : ",fonction_score(dict_test,-1))
+
+dict_test[5,5] = Pawn(-1)
+print("score : ",fonction_score(dict_test,1))
 # """
 # print("list des mouvements", pieces[(2, 1)].symbol, " : ")
 # print(list_all_move(pieces, 1))
@@ -17,7 +24,7 @@ pieces = newSetOfPieces()
 #    print(pos, pieces[pos], ", ", pieces[pos].player)
 # """
 
-print(len(pieces))
+# print(len(pieces))
 # afficherTerrain(pieces)
 # afficherTerrain(pieces, -1)
 

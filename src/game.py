@@ -65,7 +65,7 @@ def cc_game(dico_piece):
     finish = True
     player = 1
     i = 0
-    ia_type = "viral"
+    ia_type = "maxScore"
     difficulty = 1
     while finish:
         c_turn(player, dico_piece, ia_type, difficulty)
