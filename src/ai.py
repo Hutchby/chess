@@ -77,7 +77,24 @@ def maxScore(pieces, player):
         pieces_temp = deepcopy(pieces)
         pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
         list_score[i] = fonction_score(pieces_temp, player)
-    return list_move[max_indice(list_score)]
+        indice = max_indice(list_score)
+    return [list_move[indice], list_score[indice]]
+
+
+def best_move(pieces, player, deep):
+    if deep == 1:
+        return maxScore(pieces, player)
+
+    list_move = list_all_move(pieces, player)
+    list_score = [0] * len(list_move)
+
+    for i in range(0, len(list_move)):
+        move = list_move[i]
+        pieces_temp = deepcopy(pieces)
+        pieces_temp[move[1]] = pieces_temp.pop(move[0])
+        [list_move[i], list_score[i]] = best_move(pieces_temp, -player, deep - 1)
+    indice = max_indice(list_score)
+    return [list_move[indice], list_score[indice]]
 
 
 def mainIA(player, pieces, ia_type, difficulty):
@@ -88,8 +105,9 @@ def mainIA(player, pieces, ia_type, difficulty):
         nb_try = 10
         move = viral_spread(pieces, player, difficulty, nb_try)
     elif ia_type == "maxScore":
-        move = maxScore(pieces, player)
-
+        move = maxScore(pieces, player)[0]
+    elif ia_type == "best_move":
+        move = best_move(pieces, player, 2)[0]
     return move
 
 

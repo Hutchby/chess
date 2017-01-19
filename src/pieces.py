@@ -218,7 +218,7 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
 
         # prendre en diagonale
         for i in [-1, 1]:
-            position = (pos[0] + i, pos[1] - self.player)
+            position = (pos[0] + i, pos[1])
             if there_is_something(dico_piece, position[0], position[1]):
                 if dico_piece[position].player != self.player:
                     if try_move(dico_piece, self.player, (pos, position)) != self.player:
