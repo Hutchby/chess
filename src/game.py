@@ -5,6 +5,11 @@ from src.pieces import *
 from src.ai import *
 
 
+def turn():
+    print("TODO: catch coord for human")
+    print("Need to call h_turn or c_turn")
+
+
 def move_input():
     print("move (x1,y1) to (x2,y2):")
     x1 = int(input("x1: "))
@@ -70,8 +75,8 @@ def cc_game(dico_piece):
     while finish:
         c_turn(player, dico_piece, ia_type, difficulty)
         player = -player  # swap player turn
-        #finish = False
-        i = i + 1
+        # finish = False
+        i += 1
         if i % 1 == 0:
             afficherTerrain(dico_piece, player)
     return False

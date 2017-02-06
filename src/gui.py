@@ -3,6 +3,7 @@
 from tkinter import *
 
 from src.rules import *
+from src.game import *
 
 
 def afficherTerrain(pieces, player=-1):
@@ -88,7 +89,7 @@ def main_windows():
     p.add(Label(p, text='', background='grey', anchor=CENTER))
 
     d = PanedWindow(m, orient=HORIZONTAL)
-    d.add(Button(d, text='play', command=test()))
+    d.add(Button(d, text='play', command=turn))
     d.add(Button(d, text='quit', command=window.quit))
     d.add(Label(d, text='', background='grey', anchor=CENTER))
 
