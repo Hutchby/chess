@@ -63,16 +63,37 @@ def cenvas_field(window, pieces, player=-1):
 
 
 def test():
-    print ("lol")
+    print("lol")
+
+
+def test2():
+    print("troll")
 
 
 def main_windows():
     pieces = newSetOfPieces()
     window = Tk()
     window.title("Chess by Popino et Lulu")
-    cenvas_field(window, pieces).pack(side=TOP, padx=5, pady=5)
-    b = Button(window, text='play', action="<Enter>", command=test())
-    b.pack(side=LEFT, padx=5, pady=5)
-    Button(window, text='quit').pack(side=RIGHT, padx=5, pady=5)
 
+    m = PanedWindow(window, orient=VERTICAL, )
+    m.pack(pady=2, padx=2)
+
+    p = PanedWindow(m, orient=HORIZONTAL)
+    p.add(Label(p, text='from', background='white', anchor=CENTER))
+    p.add(Entry(p, textvariable=str, width=1))
+    p.add(Entry(p, textvariable=str, width=1))
+    p.add(Label(p, text='to', background='white', anchor=CENTER))
+    p.add(Entry(p, textvariable=str, width=1))
+    p.add(Entry(p, textvariable=str, width=1))
+    p.add(Label(p, text='', background='grey', anchor=CENTER))
+
+    d = PanedWindow(m, orient=HORIZONTAL)
+    d.add(Button(d, text='play', command=test()))
+    d.add(Button(d, text='quit', command=window.quit))
+    d.add(Label(d, text='', background='grey', anchor=CENTER))
+
+    m.add(cenvas_field(window, pieces))
+    m.add(p)
+    m.add(d)
+    m.pack()
     window.mainloop()

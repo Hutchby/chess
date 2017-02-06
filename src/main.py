@@ -36,7 +36,7 @@ print("score : ",fonction_score(dict_test,1))
 # print("score:", fonctionScore(pieces, 1))
 game_type = -1
 
-print("move : ", pieces[5,1].list_move((5,1), pieces))
+print("move : ", pieces[5, 1].list_move((5, 1), pieces))
 
 while game_type < 0 or 2 < game_type:
     game_type = input("""What kind of game? (H:human, C: computer)
