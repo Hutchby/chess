@@ -13,6 +13,7 @@ b = Entry(p, width=1)
 c = Entry(p, width=1)
 d = Entry(p, width=1)
 
+
 def afficherTerrain(pieces, player=-1):
     window = Tk()
     window.title("Plateau de jeu")
@@ -43,8 +44,8 @@ def afficherTerrain(pieces, player=-1):
     window.mainloop()
 
 
-def cenvas_field(window, pieces, player=-1):
-    canvas = Canvas(window, width=800, height=800)
+def cenvas_field(w, pieces, player=-1):
+    canvas = Canvas(w, width=800, height=800)
     for n in range(1, 8):
         canvas.create_line(90 * n, 0, 90 * n, 720)
         canvas.create_line(0, 90 * n, 720, 90 * n)
