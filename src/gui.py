@@ -5,6 +5,13 @@ from tkinter import *
 from src.rules import *
 from src.game import *
 
+window = Tk()
+m = PanedWindow(window, orient=VERTICAL)
+p = PanedWindow(m, orient=HORIZONTAL)
+a = Entry(p, width=1)
+b = Entry(p, width=1)
+c = Entry(p, width=1)
+d = Entry(p, width=1)
 
 def afficherTerrain(pieces, player=-1):
     window = Tk()
@@ -63,38 +70,34 @@ def cenvas_field(window, pieces, player=-1):
     return canvas
 
 
-def test():
-    print("lol")
-
-
-def test2():
-    print("troll")
+def send_coord():
+    print("test")
+    print(a.get(), b.get(), c.get(), d.get())
+    return {a.get(), b.get(), c.get(), d.get()}
 
 
 def main_windows():
     pieces = newSetOfPieces()
-    window = Tk()
     window.title("Chess by Popino et Lulu")
 
-    m = PanedWindow(window, orient=VERTICAL, )
-    m.pack(pady=2, padx=2)
+    global window, m, p, a, b, c, d
 
-    p = PanedWindow(m, orient=HORIZONTAL)
+    m.pack(pady=2, padx=2)
     p.add(Label(p, text='from', background='white', anchor=CENTER))
-    p.add(Entry(p, textvariable=str, width=1))
-    p.add(Entry(p, textvariable=str, width=1))
+    p.add(a)
+    p.add(b)
     p.add(Label(p, text='to', background='white', anchor=CENTER))
-    p.add(Entry(p, textvariable=str, width=1))
-    p.add(Entry(p, textvariable=str, width=1))
+    p.add(c)
+    p.add(d)
     p.add(Label(p, text='', background='grey', anchor=CENTER))
 
-    d = PanedWindow(m, orient=HORIZONTAL)
-    d.add(Button(d, text='play', command=turn))
-    d.add(Button(d, text='quit', command=window.quit))
-    d.add(Label(d, text='', background='grey', anchor=CENTER))
+    z = PanedWindow(m, orient=HORIZONTAL)
+    z.add(Button(z, text='play', command=send_coord))
+    z.add(Button(z, text='quit', command=window.quit))
+    z.add(Label(z, text='', background='grey', anchor=CENTER))
 
     m.add(cenvas_field(window, pieces))
     m.add(p)
-    m.add(d)
+    m.add(z)
     m.pack()
     window.mainloop()
