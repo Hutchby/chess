@@ -8,10 +8,63 @@ from src.game import *
 window = Tk()
 m = PanedWindow(window, orient=VERTICAL)
 p = PanedWindow(m, orient=HORIZONTAL)
-a = Entry(p, width=1)
-b = Entry(p, width=1)
-c = Entry(p, width=1)
-d = Entry(p, width=1)
+
+
+def set_buttons(main_w):
+    ret = []
+    for i in range(0, 8):
+        ret.append([])
+        for j in range(0, 8):
+            ret[i].append(Button(main_w, text='_'))
+            ret[i][j].grid(row=j, column=i + 1)
+    return ret
+
+
+board = set_buttons(window)
+
+
+def refresh_board():
+    global dict_pieces, board
+
+    print(dict_pieces.keys())
+    for i in range(0, 8):
+        for j in range(0, 8):
+            board[i][j].config(text='   ')
+    for pos in dict_pieces.keys():
+        board[pos[0] - 1][pos[1] - 1].config(text=dict_pieces[pos].symbol)
+
+
+
+def send_coord():
+    global dict_pieces, player
+    print("test")
+    # dict_pieces[3, 3] = Bishop(1)
+    move = []
+    for i in range(0,4):
+        move.append(user_input[i].get())
+    print(move)
+    if there_is_something(dict_pieces, move[0], move[1]):
+        if dict_pieces[move[0]].player == player:
+            if move[1] in dict_pieces[move[0]].list_move(move[0],dict_pieces):
+                dict_pieces[move[1]] = dict_pieces.pop(move[0])
+    refresh_board()
+    return move
+
+
+def set_input(main_w):
+    ret = [Entry(main_w, width=2), Entry(main_w, width=2), Entry(main_w, width=2), Entry(main_w, width=2)]
+    ret[0].grid(row=9, column=3)
+    ret[1].grid(row=9, column=4)
+    ret[2].grid(row=9, column=6)
+    ret[3].grid(row=9, column=7)
+    Label(main_w, text='from', background='white', anchor=CENTER).grid(row=9, column=2)
+    Label(main_w, text='to', background='white', anchor=CENTER).grid(row=9, column=5)
+    Button(main_w, text='play', command=send_coord).grid(row=11, column=3)
+    Button(main_w, text='quit', command=window.quit).grid(row=11, column=6)
+    return ret
+
+
+user_input = set_input(window)
 
 
 def afficherTerrain(pieces, player=-1):
@@ -71,48 +124,8 @@ def cenvas_field(w, pieces, player=-1):
     return canvas
 
 
-def send_coord():
-
-    global dict_pieces, player
-    print("test")
-    print(a.get(), b.get(), c.get(), d.get())
-    x0 = a.get()
-    y0 = b.get()
-    x1 = c.get()
-    y1 = d.get()
-
-    move = ((x0,y0),(x1,y1))
-
-    if there_is_something(dict_pieces, x0, y0):
-        if dict_pieces[move[0]].player == player:
-            if move[1] in dict_pieces[move[0]].list_move(move[0],dict_pieces):
-                dict_pieces[move[1]] = dict_pieces.pop(move[0])
-
-    return {a.get(), b.get(), c.get(), d.get()}
-
-
 def main_windows():
-
+    global window, dict_pieces
     window.title("Chess by Popino et Lulu")
-
-    global window, m, p, a, b, c, d, dict_pieces
-
-    m.pack(pady=2, padx=2)
-    p.add(Label(p, text='from', background='white', anchor=CENTER))
-    p.add(a)
-    p.add(b)
-    p.add(Label(p, text='to', background='white', anchor=CENTER))
-    p.add(c)
-    p.add(d)
-    p.add(Label(p, text='', background='grey', anchor=CENTER))
-
-    z = PanedWindow(m, orient=HORIZONTAL)
-    z.add(Button(z, text='play', command=send_coord))
-    z.add(Button(z, text='quit', command=window.quit))
-    z.add(Label(z, text='', background='grey', anchor=CENTER))
-
-    m.add(p)
-    m.add(z)
-    m.add(cenvas_field(window, dict_pieces))
-    m.pack()
     window.mainloop()
+
