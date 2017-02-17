@@ -1,5 +1,5 @@
 itoa = {}
-for i in range(8):
-    itoa[i + 1] = chr(ord('A') + i)
+for ij in range(8):
+    itoa[ij + 1] = chr(ord('A') + ij)
 # print(itoa)
 

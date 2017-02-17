@@ -5,6 +5,7 @@
 from copy import deepcopy
 from src.utils import *
 
+
 def there_is_something(d, x, y):
     try:
         res = d[x, y]
@@ -295,7 +296,7 @@ class Rook(Piece):  # definition classe TOUR qui hérite de Piece
                         l.append((pos[0], y))
         return l
 
-# problème avec try_move
+
 class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
     def __init__(self, player):  # constructeur
@@ -327,7 +328,7 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
         return l
 
 
-def newSetOfPieces():
+def new_set_of_pieces():
     dict_piece = {}
     for i in [-1, 1]:
         for j in [-1, 1]:
@@ -342,13 +343,27 @@ def newSetOfPieces():
         dict_piece[int(5), int(4.5 + i * 3.5)] = King(i)
     return dict_piece
 
-dict_pieces = newSetOfPieces()
+dict_pieces = new_set_of_pieces()
+
 
 # return 1 if move possible
 def try_move(dic_piece, player, move):
     dico_temp = deepcopy(dic_piece)
     dico_temp[move[1]] = dico_temp.pop(move[0])
     return player == is_check(dico_temp, player)
+
+
+def move_piece(dic_piece, move):
+    if type(dic_piece[move[0]]) == King:
+        if abs(move[0][0] - move[1][0]) == 2:
+            # castling move
+            print("tower have to move")
+            if move[0][0] > move[1][0]:
+                dic_piece[(4, move[0][1])] = dic_piece.pop((1, move[0][1]))
+            else:
+                dic_piece[(6, move[0][1])] = dic_piece.pop((8, move[0][1]))
+    dic_piece[move[1]] = dic_piece.pop(move[0])
+
 
 # return the current player if check else return other player if he is check else return 0 if nothing
 def is_check(dict_piece, player):
@@ -475,6 +490,7 @@ def is_check(dict_piece, player):
                                         return dict_piece[roi].player
                                     state = dict_piece[roi].player
     return state
+
 
 def list_all_move(dico_piece, player):
     list_move = []

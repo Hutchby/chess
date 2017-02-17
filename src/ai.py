@@ -2,7 +2,7 @@ from src.pieces import *
 import random
 
 
-def fonction_score(pieces, player):
+def function_score(pieces, player):
     """ donne un score en fonction des pieces et de la distance au centre afin de pousser les pieces a se combattre
     Le controle du centre est important aux echecs sauf si il s’agit du roi.
     """
@@ -11,17 +11,17 @@ def fonction_score(pieces, player):
 
     for pos in pieces:
 
-        valuePiece = pieces[pos].value
-        valuePiece *= 10
+        value_piece = pieces[pos].value
+        value_piece *= 10
 
         # controler le centre est important
         if pieces[pos].symbol != "K":  # on controle pas le centre avec un roi
-            valuePiece += 8 - abs(4.5 - pos[0]) - (pos[1] - 4.5) * pieces[pos].player
+            value_piece += 8 - abs(4.5 - pos[0]) - (pos[1] - 4.5) * pieces[pos].player
 
         if pieces[pos].player != player:
-            valuePiece *= -1
+            value_piece *= -1
 
-        score += valuePiece
+        score += value_piece
 
         # on regarde si on met en echec
     if is_check(pieces, player):
@@ -31,21 +31,10 @@ def fonction_score(pieces, player):
 
 
 def random_move(pieces, player):
-    player_p = player
-    while player_p == player:
-        current_piece = random.choice(list(pieces.keys()))
-        player_p = pieces[current_piece].player
-        if pieces[current_piece].list_move(current_piece, pieces) == []:
-            player_p = player
-
-    move_ok = player
-    # while move_ok == player:
-    move = (current_piece, random.choice(pieces[current_piece].list_move(current_piece, pieces)))
-    return move
+    return random.choice(list_all_move(pieces, player))
 
 
-def viral_spread(pieces, player, diff, nb_try):
-    diff = 3 # à enlever à terme
+def viral_spread(pieces, player, nb_try, diff=3):
     list_move = list_all_move(pieces, player)
     list_score = [0] * len(list_move)
     for i in range(0, len(list_move)):
@@ -59,64 +48,75 @@ def viral_spread(pieces, player, diff, nb_try):
                 current_player *= -1
                 move = random_move(pieces_temp, current_player)
                 pieces_temp[move[1]] = pieces_temp.pop(move[0])
-            list_score[i] += fonction_score(pieces_temp, player)
-        # list_score[i] = fonction_score(pieces_temp, player)
+            list_score[i] += function_score(pieces_temp, player)
+            # list_score[i] = function_score(pieces_temp, player)
 
-    list_nb_move = [0] * len(list_move)
-    move = list_move[max_indice(list_score)]
+    # list_nb_move = [0] * len(list_move)
+    move = list_move[max_index(list_score)]
     print(list_score)
     return move
 
 
-def maxScore(pieces, player):
+def max_score(pieces, player):
     list_move = list_all_move(pieces, player)
     list_score = [0] * len(list_move)
     for i in range(0, len(list_move)):
         first_move = list_move[i]
-        # try_move(pieces, player, first_move) # pas utile car mouvement dékà testé dans list_all_move
         pieces_temp = deepcopy(pieces)
         pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
-        list_score[i] = fonction_score(pieces_temp, player)
-        indice = max_indice(list_score)
-    return [list_move[indice], list_score[indice]]
+        list_score[i] = function_score(pieces_temp, player)
+    index = max_index(list_score)
+    return [list_move[index], list_score[index]]
 
 
 def best_move(pieces, player, deep):
+    # generate list of all move & generate an empty list of score
     list_move = list_all_move(pieces, player)
     list_score = [0] * len(list_move)
+
+    # stop condition of the reccursiv loop
     if deep == 1:
         for i in range(0, len(list_move)):
-            first_move = list_move[i]
-            # try_move(pieces, player, first_move) # pas utile car mouvement dékà testé dans list_all_move
+            # generate a copy of the dictionnary to try a move
             pieces_temp = deepcopy(pieces)
-            pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
-            list_score[i] = fonction_score(pieces_temp, player)
-            indice = max_indice(list_score)
-        return [list_move[indice], list_score[indice]]
 
-    for i in range(0, len(list_move)):
-        move = list_move[i]
+            # make the move & calculate the score
+            first_move = list_move[i]
+            pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
+            list_score[i] = function_score(pieces_temp, player)
+
+        # find the best score and return it
+        index = max_index(list_score)
+        return [list_move[index], list_score[index]]
+
+    for t in range(0, len(list_move)):
+        move = list_move[t]
         pieces_temp = deepcopy(pieces)
         pieces_temp[move[1]] = pieces_temp.pop(move[0])
-        [list_move[i], list_score[i]] = best_move(pieces_temp, -player, deep - 1)
+        [list_move[t], list_score[t]] = best_move(pieces_temp, -player, deep - 1)
     if deep % 2 == 1:
-        indice = max_indice(list_score)
+        index = max_index(list_score)
     else:
-        indice = min_indice(list_score)
-    return [list_move[indice], list_score[indice]]
+        index = min_index(list_score)
+    return [list_move[index], list_score[index]]
 
 
-def mainIA(player, pieces, ia_type, difficulty):
-    # ia basique, random move
+def main_ia(player, pieces, ia_type, difficulty):
+    # basic ia, random move
     if ia_type == "random":
-        move = random_move(pieces, player, 0)
+        move = random_move(pieces, player)
+
     elif ia_type == "viral":
         nb_try = 10
-        move = viral_spread(pieces, player, difficulty, nb_try)
-    elif ia_type == "maxScore":
-        move = maxScore(pieces, player)[0]
+        move = viral_spread(pieces, player, nb_try, difficulty)
+    # best next move according to score function
+    elif ia_type == "max_score":
+        move = max_score(pieces, player)[0]
+
+    # best move to a specific deep according to score function
     elif ia_type == "best_move":
         move = best_move(pieces, player, 2)[0]
+    else:
+        print("error not the right IA selected")
+        move = ""
     return move
-
-

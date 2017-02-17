@@ -1,5 +1,3 @@
-#TODO: valider que les coups dans la liste de coups autorisés
-
 from src.gui import *
 from src.pieces import *
 from src.ai import *
@@ -31,7 +29,7 @@ def h_turn(player, dico_piece):
         if there_is_something(dico_piece, move[1][0], move[1][1]):
             temp = dico_piece.pop(move[1])
 
-        # on vérifie que le joueur bouge bien sa piece
+
         if dico_piece[move[0]].player == player:
             if move[1] in dico_piece[move[0]].list_move(move[0], dico_piece):
                 dico_piece[move[1]] = dico_piece.pop(move[0])
