@@ -74,11 +74,22 @@ def cenvas_field(w, pieces, player=-1):
 def send_coord():
     print("test")
     print(a.get(), b.get(), c.get(), d.get())
+    x0 = a.get()
+    y0 = b.get()
+    x1 = c.get()
+    y1 = d.get()
+
+    move = ((x0,y0),(x1,y1))
+
+    if there_is_something(dict_pieces, x0, y0):
+        if try_move(dict_pieces,dict_pieces[(x0,y0)].player, move):
+
     return {a.get(), b.get(), c.get(), d.get()}
 
 
 def main_windows():
-    pieces = newSetOfPieces()
+    global dict_pieces
+    dict_pieces = newSetOfPieces()
     window.title("Chess by Popino et Lulu")
 
     global window, m, p, a, b, c, d
@@ -97,7 +108,7 @@ def main_windows():
     z.add(Button(z, text='quit', command=window.quit))
     z.add(Label(z, text='', background='grey', anchor=CENTER))
 
-    m.add(cenvas_field(window, pieces))
+    m.add(cenvas_field(window, dict_pieces))
     m.add(p)
     m.add(z)
     m.pack()
