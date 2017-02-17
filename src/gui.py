@@ -84,8 +84,9 @@ def send_coord():
     move = ((x0,y0),(x1,y1))
 
     if there_is_something(dict_pieces, x0, y0):
-        if try_move(dict_pieces, player, move):
-            print("ok")
+        if dict_pieces[move[0]].player == player:
+            if move[1] in dict_pieces[move[0]].list_move(move[0],dict_pieces):
+                dict_pieces[move[1]] = dict_pieces.pop(move[0])
 
     return {a.get(), b.get(), c.get(), d.get()}
 
