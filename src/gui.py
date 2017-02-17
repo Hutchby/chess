@@ -111,8 +111,8 @@ def main_windows():
     z.add(Button(z, text='quit', command=window.quit))
     z.add(Label(z, text='', background='grey', anchor=CENTER))
 
-    m.add(cenvas_field(window, dict_pieces))
     m.add(p)
     m.add(z)
+    m.add(cenvas_field(window, dict_pieces))
     m.pack()
     window.mainloop()
