@@ -82,18 +82,27 @@ def maxScore(pieces, player):
 
 
 def best_move(pieces, player, deep):
-    if deep == 1:
-        return maxScore(pieces, player)
-
     list_move = list_all_move(pieces, player)
     list_score = [0] * len(list_move)
+    if deep == 1:
+        for i in range(0, len(list_move)):
+            first_move = list_move[i]
+            # try_move(pieces, player, first_move) # pas utile car mouvement dékà testé dans list_all_move
+            pieces_temp = deepcopy(pieces)
+            pieces_temp[first_move[1]] = pieces_temp.pop(first_move[0])
+            list_score[i] = fonction_score(pieces_temp, player)
+            indice = max_indice(list_score)
+        return [list_move[indice], list_score[indice]]
 
     for i in range(0, len(list_move)):
         move = list_move[i]
         pieces_temp = deepcopy(pieces)
         pieces_temp[move[1]] = pieces_temp.pop(move[0])
         [list_move[i], list_score[i]] = best_move(pieces_temp, -player, deep - 1)
-    indice = max_indice(list_score)
+    if deep % 2 == 1:
+        indice = max_indice(list_score)
+    else:
+        indice = min_indice(list_score)
     return [list_move[indice], list_score[indice]]
 
 

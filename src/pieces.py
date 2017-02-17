@@ -4,8 +4,6 @@
 
 from copy import deepcopy
 from src.utils import *
-from src.rules import *
-
 
 def there_is_something(d, x, y):
     try:
@@ -343,6 +341,8 @@ def newSetOfPieces():
         dict_piece[int(4), int(4.5 + i * 3.5)] = Queen(i)
         dict_piece[int(5), int(4.5 + i * 3.5)] = King(i)
     return dict_piece
+
+dict_pieces = newSetOfPieces()
 
 # return 1 if move possible
 def try_move(dic_piece, player, move):

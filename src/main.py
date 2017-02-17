@@ -6,6 +6,9 @@ game_type = 1
 if game_type != -1:
     print("there is a shortcut for the test, game_type = ", game_type)
 
+
+player = -1
+
 while game_type < 0 or 2 < game_type:
     game_type = input("""What kind of game? (H:human, C: computer)
         # HvC: 0

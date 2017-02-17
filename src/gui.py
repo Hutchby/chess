@@ -72,6 +72,8 @@ def cenvas_field(w, pieces, player=-1):
 
 
 def send_coord():
+
+    global dict_pieces, player
     print("test")
     print(a.get(), b.get(), c.get(), d.get())
     x0 = a.get()
@@ -82,17 +84,17 @@ def send_coord():
     move = ((x0,y0),(x1,y1))
 
     if there_is_something(dict_pieces, x0, y0):
-        if try_move(dict_pieces,dict_pieces[(x0,y0)].player, move):
+        if try_move(dict_pieces, player, move):
+            print("ok")
 
     return {a.get(), b.get(), c.get(), d.get()}
 
 
 def main_windows():
-    global dict_pieces
-    dict_pieces = newSetOfPieces()
+
     window.title("Chess by Popino et Lulu")
 
-    global window, m, p, a, b, c, d
+    global window, m, p, a, b, c, d, dict_pieces
 
     m.pack(pady=2, padx=2)
     p.add(Label(p, text='from', background='white', anchor=CENTER))
