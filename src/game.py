@@ -5,9 +5,15 @@ from src.gui import *
 from src.ai import *
 
 
-def turn():
-    print("TODO: catch coord for human")
-    print("Need to call h_turn or c_turn")
+def turn(coordfrom=FALSE, coordto=FALSE):
+    global player, dict_pieces
+    if coordfrom != FALSE & coordto != FALSE:
+        h_turn(dict_pieces, player, coordfrom, coordto)
+    while (game & players[player] == 'c'):
+        # disable input
+        c_turn()
+        refresh_board()
+    # enable input
 
 
 def move_input():
@@ -19,8 +25,7 @@ def move_input():
     return (x1, y1), (x2, y2)
 
 
-def h_turn(player, dico_piece):
-
+def h_turn(player, dico_piece, coordfrom, coordto):
     check = 1
     while check != 0:
         print("Turn: Player ", player)

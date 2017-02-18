@@ -41,7 +41,7 @@ def OnButtonClick(i, j):
         fclick = [i, j]
     else:
         return
-#        try_move(dict_pieces, player, [fclick, [i, j]])
+#        turn(dict_pieces, player, [fclick, [i, j]])
 
 
 def send_coord():
@@ -53,7 +53,7 @@ def send_coord():
         move.append(user_input[i].get())
     print(move)
 
-    # exec turn
+    # turn()
     refresh_board()
     return move
 
