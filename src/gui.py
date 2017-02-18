@@ -8,14 +8,14 @@ from src.game import *
 window = Tk()
 m = PanedWindow(window, orient=VERTICAL)
 p = PanedWindow(m, orient=HORIZONTAL)
-
+fclick = []
 
 def set_buttons(main_w):
     ret = []
     for i in range(0, 8):
         ret.append([])
         for j in range(0, 8):
-            ret[i].append(Button(main_w, text='_'))
+            ret[i].append(Button(main_w, text='_', command=lambda i=i, j=j: OnButtonClick(i, j)))
             ret[i][j].grid(row=j, column=i + 1)
     return ret
 
@@ -34,6 +34,15 @@ def refresh_board():
         board[pos[0] - 1][pos[1] - 1].config(text=dict_pieces[pos].symbol)
 
 
+def OnButtonClick(i, j):
+    global fclick, player
+    print(i, j)
+    if len(fclick) == 0:
+        fclick = [i, j]
+    else:
+        return
+#        try_move(dict_pieces, player, [fclick, [i, j]])
+
 
 def send_coord():
     global dict_pieces, player
@@ -43,10 +52,8 @@ def send_coord():
     for i in range(0,4):
         move.append(user_input[i].get())
     print(move)
-    if there_is_something(dict_pieces, move[0], move[1]):
-        if dict_pieces[move[0]].player == player:
-            if move[1] in dict_pieces[move[0]].list_move(move[0],dict_pieces):
-                dict_pieces[move[1]] = dict_pieces.pop(move[0])
+
+    # exec turn
     refresh_board()
     return move
 
