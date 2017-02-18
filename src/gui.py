@@ -10,6 +10,7 @@ m = PanedWindow(window, orient=VERTICAL)
 p = PanedWindow(m, orient=HORIZONTAL)
 fclick = []
 
+
 def set_buttons(main_w):
     ret = []
     for i in range(0, 8):
@@ -18,7 +19,6 @@ def set_buttons(main_w):
             ret[i].append(Button(main_w, text='_', command=lambda i=i, j=j: OnButtonClick(i, j)))
             ret[i][j].grid(row=j, column=i + 1)
     return ret
-
 
 board = set_buttons(window)
 

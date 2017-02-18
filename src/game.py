@@ -3,19 +3,54 @@
 
 from src.gui import *
 from src.ai import *
+from src.pieces import *
+
+player = -1
+players = {}
+ia_type = "viral"
+difficulty = 3
+
+
+def select_game_type():
+
+    global players
+
+    game_type = 1
+    if game_type != -1:
+        print("There is a shortcut for the test, game_type = ", game_type)
+
+    while game_type < 0 or 2 < game_type:
+        game_type = input("""What kind of game? (H:human, C: computer)
+            # HvC: 0
+            HvH: 1
+            CvC: 2
+        your choice: """)
+
+    if game_type <= 1:
+        players[-1] = "h"
+        players[1] = "h"
+
+    if game_type == 0:
+        players[random.choice([-1, 1])] = "c"
+
+    if game_type == 2:
+        players[-1] = "c"
+        players[1] = "c"
 
 
 def turn(coordfrom=FALSE, coordto=FALSE):
-    global player, dict_pieces
+
+    global dict_pieces, players, player, ia_type, difficulty
     if coordfrom != FALSE & coordto != FALSE:
-        h_turn(dict_pieces, player, coordfrom, coordto)
-    while (game & players[player] == 'c'):
+        h_turn(coordfrom, coordto)
+    while 1 & players[player] == 'c':
         # disable input
-        c_turn()
+        c_turn(ia_type, difficulty)
         refresh_board()
     # enable input
 
 
+# no longer used
 def move_input():
     print("move (x1,y1) to (x2,y2):")
     x1 = int(input("x1: "))
@@ -25,86 +60,32 @@ def move_input():
     return (x1, y1), (x2, y2)
 
 
-def h_turn(player, dico_piece, coordfrom, coordto):
-    check = 1
-    while check != 0:
-        print("Turn: Player ", player)
-        afficherTerrain(dico_piece, player)
-        move = move_input()
+def h_turn(coordfrom, coordto):
 
-        # if there_is_something(dico_piece, move[1][0], move[1][1]):
-        #    temp = dico_piece.pop(move[1])
+    global player, dict_pieces
 
-        if dico_piece[move[0]].player == player:
-            if move[1] in dico_piece[move[0]].list_move(move[0], dico_piece):
-                dico_piece[move[1]] = dico_piece.pop(move[0])
-                check = is_check(dico_piece, player)
-                if check == -player:
-                    print("Joueur ", -player, " en echec ! ")
-                    break
-        else:
-            print("Pas votre pièce")
+    move = (coordfrom, coordto)
 
-    return False
+    print("Turn: Player ", player)
+    if dict_pieces[move[0]].player == player:
+        if move[1] in dict_pieces[move[0]].list_move(move[0], dict_pieces):
+            dict_pieces[move[1]] = dict_pieces.pop(move[0])
+            if is_check(dict_pieces, player) == -player:
+                print("Joueur ", -player, " en echec ! ")
+            return True
+        return False
+    else:
+        print("Pas votre pièce")
+        return False
 
 
-def c_turn(player, dico_piece, ia_type, difficulty):
+def c_turn(ia_type, difficulty):
+
+    global player, dict_pieces
     print("Turn: Computer ", player)
 
     # calcule le coup a faire
-    move = main_ia(player, dico_piece, ia_type, difficulty)
-    dico_piece[move[1]] = dico_piece.pop(move[0])
-    dico_piece[move[1]].has_moved = True
+    move = main_ia(player, dict_pieces, ia_type, difficulty)
+    dict_pieces[move[1]] = dict_pieces.pop(move[0])
+    dict_pieces[move[1]].has_moved = True
     return False
-
-
-def hh_game(dico_piece):
-    finish = True
-    player = -1
-    while finish:
-        h_turn(player, dico_piece)
-        player = -player  # swap player turn
-        finish = TRUE
-
-
-def cc_game(dico_piece):
-    finish = True
-    player = 1
-    i = 0
-    ia_type = "best_move"
-    difficulty = 1
-    while finish:
-        c_turn(player, dico_piece, ia_type, difficulty)
-        player = -player  # swap player turn
-        # finish = False
-        i += 1
-        if i % 1 == 0:
-            afficherTerrain(dico_piece, player)
-    return False
-
-
-def hc_game(dico_piece):
-    finish = True
-    h_is = 1
-    player = 1
-    ia_type = "best_move"
-    difficulty = 1
-    while finish:
-        if h_is == player:
-            finish = h_turn(player, dico_piece)
-        else:
-            finish = c_turn(player, dico_piece, ia_type, difficulty)
-        player = -player  # swap player turn
-    return False
-
-
-def new_game(game_type, dico_piece):
-    if game_type == 0:
-        print("Human vs Computer: The game can start")
-        hc_game(dico_piece)
-    elif game_type == 2:
-        print("Computer vs Computer: The game can start")
-        cc_game(dico_piece)
-    elif game_type == 1:
-        print("Human vs Human: The game can start")
-        hh_game(dico_piece)
