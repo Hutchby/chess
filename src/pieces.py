@@ -1,15 +1,10 @@
-# TODO: corriger la fonction trymove
-# fonctions de mouvement, une pour les possibilitées pour l'ia et l'autre pour
-# verifier que le coup est possible
-
 from copy import deepcopy
-from src.utils import *
 
 
 def there_is_something(d, x, y):
     try:
         res = d[x, y]
-    except Exception:
+    except KeyError:
         return False
     return res
 
@@ -66,7 +61,7 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
                                 l.append((pos[0] + i, pos[1] + j))
 
         if not self.has_moved:
-            for t in [-1, 1]: #-1 = gauche 1 = droite
+            for t in [-1, 1]:
                 if there_is_something(dico_piece, int(4.5 + t * 3.5), pos[1]):
                     a = True
                     for x in range(pos[1], int(4.5 + t * 3.5), t):
@@ -147,11 +142,6 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
     def __repr__(self):
         return "Bishop"
-
-    def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
-        l = []  # liste de tuple x/y
-        print("Je retourne pas les possibilité pour le moment alors bon...")
-        return l
 
     def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
@@ -311,14 +301,14 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
         l = []  # liste de tuple x/y
 
         dep = [-2, -1, 1, 2]
-        i= 0
+        i = 0
         for x in dep:
             for y in dep:
                 if abs(x * y) == 2:
                     new_pos = (pos[0] + x, pos[1] + y)
                     if (new_pos[0] * new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                            i = i +1
+                            i += 1
                             if dico_piece[new_pos].player != self.player:
                                 if try_move(dico_piece, self.player, (pos, new_pos)):
                                     l.append(new_pos)

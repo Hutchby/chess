@@ -1,5 +1,7 @@
+# TODO: modify h_turn in order not to let player move if it's not a correct move
+# TODO: allow h_player to be player 1 & c_player to be player -1
+
 from src.gui import *
-from src.pieces import *
 from src.ai import *
 
 
@@ -21,14 +23,12 @@ def h_turn(player, dico_piece):
 
     check = 1
     while check != 0:
-        temp = 0
         print("Turn: Player ", player)
         afficherTerrain(dico_piece, player)
         move = move_input()
 
-        if there_is_something(dico_piece, move[1][0], move[1][1]):
-            temp = dico_piece.pop(move[1])
-
+        # if there_is_something(dico_piece, move[1][0], move[1][1]):
+        #    temp = dico_piece.pop(move[1])
 
         if dico_piece[move[0]].player == player:
             if move[1] in dico_piece[move[0]].list_move(move[0], dico_piece):
@@ -47,11 +47,9 @@ def c_turn(player, dico_piece, ia_type, difficulty):
     print("Turn: Computer ", player)
 
     # calcule le coup a faire
-    move = mainIA(player, dico_piece, ia_type, difficulty)
+    move = main_ia(player, dico_piece, ia_type, difficulty)
     dico_piece[move[1]] = dico_piece.pop(move[0])
     dico_piece[move[1]].has_moved = True
-
-
     return False
 
 
@@ -84,11 +82,13 @@ def hc_game(dico_piece):
     finish = True
     h_is = 1
     player = 1
+    ia_type = "best_move"
+    difficulty = 1
     while finish:
         if h_is == player:
             finish = h_turn(player, dico_piece)
         else:
-            finish = c_turn(player, dico_piece)
+            finish = c_turn(player, dico_piece, ia_type, difficulty)
         player = -player  # swap player turn
     return False
 
