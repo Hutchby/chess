@@ -1,3 +1,5 @@
+# TODO: finish move_piece
+# TODO: add check condition on king castling
 from copy import deepcopy
 
 
@@ -60,6 +62,7 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
                             if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                                 l.append((pos[0] + i, pos[1] + j))
 
+        # castling
         if not self.has_moved:
             for t in [-1, 1]:
                 if there_is_something(dico_piece, int(4.5 + t * 3.5), pos[1]):
@@ -344,15 +347,27 @@ def try_move(dic_piece, player, move):
 
 
 def move_piece(dic_piece, move):
-    if type(dic_piece[move[0]]) == King:
-        if abs(move[0][0] - move[1][0]) == 2:
-            # castling move
-            print("tower have to move")
-            if move[0][0] > move[1][0]:
-                dic_piece[(4, move[0][1])] = dic_piece.pop((1, move[0][1]))
-            else:
-                dic_piece[(6, move[0][1])] = dic_piece.pop((8, move[0][1]))
-    dic_piece[move[1]] = dic_piece.pop(move[0])
+    if move[1] in dict_pieces[move[0]].list_move(move[0], dict_pieces):
+        if type(dic_piece[move[0]]) == King:
+            # castling
+            if abs(move[0][0] - move[1][0]) == 2:
+                # castling move
+                print("Rook have to move")
+                # move the tower
+                if move[0][0] > move[1][0]:
+                    dic_piece[(4, move[0][1])] = dic_piece.pop((1, move[0][1]))
+                else:
+                    dic_piece[(6, move[0][1])] = dic_piece.pop((8, move[0][1]))
+            dic_piece[move[0]].has_moved = True
+
+        if type(dic_piece[move[0]]) == Rook:
+            dic_piece[move[0]].has_moved = True
+
+        if there_is_something(dic_piece, move[1]):
+            piece_taken = dic_piece[move[1]]
+        dic_piece[move[1]] = dic_piece.pop(move[0])
+        return True
+    return False
 
 
 # return the current player if check else return other player if he is check else return 0 if nothing
