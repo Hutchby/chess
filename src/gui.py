@@ -1,3 +1,4 @@
+# TODO: fix trouble with coord (0,0) should be bottom left or top right depending on newt player
 # rendu graphique pour le moment ta fonction de rendu
 
 from tkinter import *
@@ -16,7 +17,11 @@ def set_buttons(main_w):
     for i in range(0, 8):
         ret.append([])
         for j in range(0, 8):
-            ret[i].append(Button(main_w, text='_', command=lambda i=i, j=j: OnButtonClick(i, j)))
+            if (i + j) % 2 == 1:
+                color_bg = "white"
+            else:
+                color_bg = "grey"
+            ret[i].append(Button(main_w, text='_', command=lambda i=i, j=j: OnButtonClick(i, j), bg = color_bg))
             ret[i][j].grid(row=j, column=i + 1)
     return ret
 
@@ -74,7 +79,7 @@ def set_input(main_w):
 user_input = set_input(window)
 
 
-def afficherTerrain(pieces, player=-1):
+def afficher_terrain(pieces, current_player=-1):
     window = Tk()
     window.title("Plateau de jeu")
     canvas = Canvas(window, width=800, height=800)
@@ -84,7 +89,7 @@ def afficherTerrain(pieces, player=-1):
 
     for n in range(8):
 
-        if player == 1:
+        if current_player == 1:
             canvas.create_text(755, 675 - n * 90, text=8 - n)
             canvas.create_text(n * 90 + 45, 755, text=itoa[8 - n])
         else:
@@ -96,7 +101,7 @@ def afficherTerrain(pieces, player=-1):
             color = "blue"
         else:
             color = "red"
-        if player == -1:
+        if current_player == -1:
             canvas.create_text(pos[0] * 90 - 45, 765 - pos[1] * 90, text=pieces[pos].symbol, fill=color)
         else:
             canvas.create_text(765 - pos[0] * 90, pos[1] * 90 - 45, text=pieces[pos].symbol, fill=color)
@@ -133,6 +138,6 @@ def cenvas_field(w, pieces, player=-1):
 
 def main_windows():
     global window, dict_pieces
-    window.title("Chess by Popino et Lulu")
+    window.title("Chess by Paul Halbeher et Lucien Ricimello")
     window.mainloop()
 

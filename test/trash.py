@@ -25,8 +25,8 @@ print("score : ",fonction_score(dict_test,1))
 # """
 
 # print(len(pieces))
-# afficherTerrain(pieces)
-# afficherTerrain(pieces, -1)
+# afficher_terrain(pieces)
+# afficher_terrain(pieces, -1)
 
 # try:
 #     print("test: ", pieces[5, 5])
