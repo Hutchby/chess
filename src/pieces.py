@@ -1,4 +1,4 @@
-# TODO: finish move_piece
+# TODO: add check condition to list_move
 # TODO: add check condition on king castling
 from copy import deepcopy
 
@@ -56,11 +56,11 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
                     if (0 < new_pos[0] < 9) and (0 < new_pos[1] < 9):
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                             if dico_piece[new_pos].player != self.player:
-                                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                                    l.append((pos[0] + i, pos[1] + j))
-                        else:
-                            if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                                #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                                 l.append((pos[0] + i, pos[1] + j))
+                        else:
+                            #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                            l.append((pos[0] + i, pos[1] + j))
 
         # castling
         if not self.has_moved:
@@ -94,19 +94,19 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
             new_pos = (x, pos[1])
             if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                 if dico_piece[new_pos].player != self.player:
-                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append(new_pos)
+                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append(new_pos)
                 break
             else:
-                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append((x, pos[1]))
+                # if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                l.append((x, pos[1]))
 
         for x in range(pos[0] - 1, 0, -1):
             new_pos = (x, pos[1])
             if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                 if dico_piece[new_pos].player != self.player:
-                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append(new_pos)
+                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append(new_pos)
                 break
             else:
                 if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
@@ -210,11 +210,11 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
 
         # prendre en diagonale
         for i in [-1, 1]:
-            position = (pos[0] + i, pos[1])
+            position = (pos[0] + i, pos[1] - self.player)
             if there_is_something(dico_piece, position[0], position[1]):
                 if dico_piece[position].player != self.player:
-                    if try_move(dico_piece, self.player, (pos, position)) != self.player:
-                        l.append(position)
+                    #if try_move(dico_piece, self.player, (pos, position)) != self.player:
+                    l.append(position)
 
         # avancer d'une case
         position = (pos[0], pos[1] - self.player)
@@ -302,19 +302,17 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
 
     def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
-
         dep = [-2, -1, 1, 2]
-        i = 0
+
         for x in dep:
             for y in dep:
                 if abs(x * y) == 2:
                     new_pos = (pos[0] + x, pos[1] + y)
                     if (new_pos[0] * new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                            i += 1
                             if dico_piece[new_pos].player != self.player:
-                                if try_move(dico_piece, self.player, (pos, new_pos)):
-                                    l.append(new_pos)
+                                #if try_move(dico_piece, self.player, (pos, new_pos)):
+                                l.append(new_pos)
                         else:
                             if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                                 l.append(new_pos)
@@ -331,9 +329,12 @@ def new_set_of_pieces():
 
         for j in range(1, 9):
             dict_piece[j, int(4.5 + i * 2.5)] = Pawn(i)
-
         dict_piece[int(4), int(4.5 + i * 3.5)] = Queen(i)
         dict_piece[int(5), int(4.5 + i * 3.5)] = King(i)
+
+    dict_pieces = {}
+    dict_pieces[6,6] = Knight(1)
+    dict_pieces[4,5] = Pawn(-1)
     return dict_piece
 
 dict_pieces = new_set_of_pieces()

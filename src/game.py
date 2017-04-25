@@ -26,9 +26,8 @@ def select_game_type():
             CvC: 2
         your choice: """)
 
-    if game_type <= 1:
-        players[-1] = "h"
-        players[1] = "h"
+    players[-1] = "h"
+    players[1] = "h"
 
     if game_type == 0:
         players[random.choice([-1, 1])] = "c"
@@ -38,15 +37,20 @@ def select_game_type():
         players[1] = "c"
 
 
-def turn(coordfrom=FALSE, coordto=FALSE):
-
+def turn(coordfrom=(), coordto=()):
     global dict_pieces, players, player, ia_type, difficulty
-    if coordfrom != FALSE & coordto != FALSE:
-        h_turn(coordfrom, coordto)
-    while 1 & players[player] == 'c':
+    if coordfrom != () and coordto != ():
+        if h_turn(coordfrom, coordto):
+            dict_pieces[coordto].has_moved = True
+            print("player : ", player)
+            print(dict_pieces[coordto].has_move, " ", dict_pieces[coordto].symbol )
+            player *= -1
+        print("player : ", player)
+
+    #while players[player] == 'c':
         # disable input
-        c_turn(ia_type, difficulty)
-        refresh_board()
+     #   c_turn(ia_type, difficulty)
+    #    refresh_board()
     # enable input
 
 
@@ -72,6 +76,7 @@ def h_turn(coordfrom, coordto):
             dict_pieces[move[1]] = dict_pieces.pop(move[0])
             if is_check(dict_pieces, player) == -player:
                 print("Joueur ", -player, " en echec ! ")
+            dict_pieces[move[1]].has_move = True
             return True
         return False
     else:
