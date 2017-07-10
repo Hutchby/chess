@@ -56,10 +56,10 @@ class King(Piece):  # definition classe ROI qui hérite de Piece
                     if (0 < new_pos[0] < 9) and (0 < new_pos[1] < 9):
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                             if dico_piece[new_pos].player != self.player:
-                                #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                                # if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                                 l.append((pos[0] + i, pos[1] + j))
                         else:
-                            #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                            # if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                             l.append((pos[0] + i, pos[1] + j))
 
         # castling
@@ -136,7 +136,7 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
         # top right
         x, y = pos[0] + 1, pos[1] + 1
-        while x < 9 and y < 9: # for x in range(pos[0] + 1, 9):
+        while x < 9 and y < 9:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -150,7 +150,7 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
         # top left
         x, y = pos[0] - 1, pos[1] + 1
-        while x > 0 and y < 9: # for x in range(pos[0] + 1, 9):
+        while x > 0 and y < 9:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -164,7 +164,7 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
         # bottom left
         x, y = pos[0] - 1, pos[1] - 1
-        while x > 0 and y > 0: # for x in range(pos[0] + 1, 9):
+        while x > 0 and y > 0:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -178,7 +178,7 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
 
         # top right
         x, y = pos[0] + 1, pos[1] - 1
-        while x < 9 and y > 0: # for x in range(pos[0] + 1, 9):
+        while x < 9 and y > 0:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -207,7 +207,7 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
         # top right
         x, y = pos[0] + 1, pos[1] + 1
-        while x < 9 and y < 9: # for x in range(pos[0] + 1, 9):
+        while x < 9 and y < 9:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -221,7 +221,7 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
         # top left
         x, y = pos[0] - 1, pos[1] + 1
-        while x > 0 and y < 9: # for x in range(pos[0] + 1, 9):
+        while x > 0 and y < 9:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -235,7 +235,7 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
         # bottom left
         x, y = pos[0] - 1, pos[1] - 1
-        while x > 0 and y > 0: # for x in range(pos[0] + 1, 9):
+        while x > 0 and y > 0:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -249,7 +249,7 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
         # top right
         x, y = pos[0] + 1, pos[1] - 1
-        while x < 9 and y > 0: # for x in range(pos[0] + 1, 9):
+        while x < 9 and y > 0:  # for x in range(pos[0] + 1, 9):
             new_pos = (x, y)
             if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
@@ -281,7 +281,7 @@ class Pawn(Piece):  # definition classe PION qui hérite de Piece
             position = (pos[0] + i, pos[1] - self.player)
             if there_is_something(dico_piece, position[0], position[1]):
                 if dico_piece[position].player != self.player:
-                    #if try_move(dico_piece, self.player, (pos, position)) != self.player:
+                    # if try_move(dico_piece, self.player, (pos, position)) != self.player:
                     l.append(position)
 
         # avancer d'une case
@@ -379,7 +379,7 @@ class Knight(Piece):  # definition classe Cavalier qui hérite de Piece
                     if (new_pos[0] * new_pos[1] >= 1) & (new_pos[0] <= 8) & (new_pos[1] <= 8):
                         if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                             if dico_piece[new_pos].player != self.player:
-                                #if try_move(dico_piece, self.player, (pos, new_pos)):
+                                # if try_move(dico_piece, self.player, (pos, new_pos)):
                                 l.append(new_pos)
                         else:
                             if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
@@ -401,8 +401,8 @@ def new_set_of_pieces():
         dict_piece[int(5), int(4.5 + i * 3.5)] = King(i)
 
     dict_pieces = {}
-    dict_pieces[6,6] = Knight(1)
-    dict_pieces[4,5] = Pawn(-1)
+    dict_pieces[6, 6] = Knight(1)
+    dict_pieces[4, 5] = Pawn(-1)
     return dict_piece
 
 dict_pieces = new_set_of_pieces()

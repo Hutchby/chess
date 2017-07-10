@@ -1,7 +1,7 @@
 # TODO: modify h_turn in order not to let player move if it's not a correct move
 # TODO: allow h_player to be player 1 & c_player to be player -1
 
-from src.gui import *
+# from src.gui import *
 from src.ai import *
 from src.pieces import *
 
@@ -39,13 +39,12 @@ def select_game_type():
 
 def turn(coordfrom=(), coordto=()):
     global dict_pieces, players, player, ia_type, difficulty
+    print("start turn player : ", player)
     if coordfrom != () and coordto != ():
         if h_turn(coordfrom, coordto):
             dict_pieces[coordto].has_moved = True
-            print("player : ", player)
             print(dict_pieces[coordto].has_move, " ", dict_pieces[coordto].symbol )
             player *= -1
-        print("player : ", player)
 
     #while players[player] == 'c':
         # disable input
