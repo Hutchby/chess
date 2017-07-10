@@ -94,19 +94,19 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
             new_pos = (x, pos[1])
             if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                 if dico_piece[new_pos].player != self.player:
-                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append(new_pos)
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
                 break
             else:
-                # if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                l.append((x, pos[1]))
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, pos[1]))
 
         for x in range(pos[0] - 1, 0, -1):
             new_pos = (x, pos[1])
             if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                 if dico_piece[new_pos].player != self.player:
-                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append(new_pos)
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
                 break
             else:
                 if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
@@ -116,23 +116,79 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
             new_pos = (pos[0], y)
             if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                 if dico_piece[new_pos].player != self.player:
-                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append(new_pos)
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
                 break
             else:
-                #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                l.append(new_pos)
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append(new_pos)
 
         for y in range(pos[1] - 1, 0, -1):
             new_pos = (pos[0], y)
             if there_is_something(dico_piece, new_pos[0], new_pos[1]):
                 if dico_piece[new_pos].player != self.player:
-                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append(new_pos)
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
                 break
             else:
-                #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                l.append((pos[0], y))
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((new_pos[0], y))
+
+        # top right
+        x, y = pos[0] + 1, pos[1] + 1
+        while x < 9 and y < 9: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, new_pos[1]))
+            x, y = x + 1, y + 1
+
+        # top left
+        x, y = pos[0] - 1, pos[1] + 1
+        while x > 0 and y < 9: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, new_pos[1]))
+            x, y = x - 1, y + 1
+
+        # bottom left
+        x, y = pos[0] - 1, pos[1] - 1
+        while x > 0 and y > 0: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, new_pos[1]))
+            x, y = x - 1, y - 1
+
+        # top right
+        x, y = pos[0] + 1, pos[1] - 1
+        while x < 9 and y > 0: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
+                if dico_piece[new_pos].player != self.player:
+                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, new_pos[1]))
+            x, y = x + 1, y - 1
         return l
 
 
@@ -148,50 +204,62 @@ class Bishop(Piece):  # definition classe FOU qui hérite de Piece
 
     def list_move(self, pos, dico_piece):  # list les coup possible pour une piece donnée
         l = []  # liste de tuple x/y
-        for x in range(pos[0] + 1, 9):
-            new_pos = (x, pos[1])
-            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+
+        # top right
+        x, y = pos[0] + 1, pos[1] + 1
+        while x < 9 and y < 9: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
                     if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                         l.append(new_pos)
                 break
             else:
                 if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append((x, pos[1]))
+                    l.append((x, new_pos[1]))
+            x, y = x + 1, y + 1
 
-        # en haut à gauche
-        for x in range(pos[0] - 1, 0, -1):
-            new_pos = (x, pos[1])
-            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+        # top left
+        x, y = pos[0] - 1, pos[1] + 1
+        while x > 0 and y < 9: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
                 if dico_piece[new_pos].player != self.player:
                     if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                         l.append(new_pos)
                 break
             else:
                 if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                    l.append((x, pos[1]))
+                    l.append((x, new_pos[1]))
+            x, y = x - 1, y + 1
 
-            for y in range(pos[1] + 1, 9):
-                new_pos = (pos[0], y)
-                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                    if dico_piece[new_pos].player != self.player:
-                        if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                            l.append(new_pos)
-                    break
-                else:
+        # bottom left
+        x, y = pos[0] - 1, pos[1] - 1
+        while x > 0 and y > 0: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
+                if dico_piece[new_pos].player != self.player:
                     if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                         l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, new_pos[1]))
+            x, y = x - 1, y - 1
 
-            for y in range(pos[1] - 1, 0, -1):
-                new_pos = (pos[0], y)
-                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                    if dico_piece[new_pos].player != self.player:
-                        if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                            l.append(new_pos)
-                    break
-                else:
+        # top right
+        x, y = pos[0] + 1, pos[1] - 1
+        while x < 9 and y > 0: # for x in range(pos[0] + 1, 9):
+            new_pos = (x, y)
+            if there_is_something(dico_piece, x, y):
+                if dico_piece[new_pos].player != self.player:
                     if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append((pos[0], y))
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((x, new_pos[1]))
+            x, y = x + 1, y - 1
         return l
 
 
@@ -266,27 +334,27 @@ class Rook(Piece):  # definition classe TOUR qui hérite de Piece
                 if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                     l.append((x, pos[1]))
 
-            for y in range(pos[1] + 1, 9):
-                new_pos = (pos[0], y)
-                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                    if dico_piece[new_pos].player != self.player:
-                        if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                            l.append(new_pos)
-                    break
-                else:
+        for y in range(pos[1] + 1, 9):
+            new_pos = (pos[0], y)
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
                     if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                         l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append(new_pos)
 
-            for y in range(pos[1] - 1, 0, -1):
-                new_pos = (pos[0], y)
-                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                    if dico_piece[new_pos].player != self.player:
-                        if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                            l.append(new_pos)
-                    break
-                else:
+        for y in range(pos[1] - 1, 0, -1):
+            new_pos = (pos[0], y)
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
                     if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append((pos[0], y))
+                        l.append(new_pos)
+                break
+            else:
+                if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append((pos[0], y))
         return l
 
 
