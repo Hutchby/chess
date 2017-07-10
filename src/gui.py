@@ -57,8 +57,9 @@ def OnButtonClick(i, j):
     global fclick, player, dict_pieces
     print(i, j)
     if len(fclick) == 0:
-        fclick = (i, j)
-        print(dict_pieces[fclick].list_move(fclick, dict_pieces))
+        if there_is_something(dict_pieces, i, j):
+            fclick = (i, j)
+            print(dict_pieces[fclick].list_move(fclick, dict_pieces))
 
     else:
         turn(fclick, (i, j))
