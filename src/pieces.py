@@ -112,27 +112,27 @@ class Queen(Piece):  # definition classe REINE qui hérite de Piece
                 if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
                     l.append((x, pos[1]))
 
-            for y in range(pos[1] + 1, 9):
-                new_pos = (pos[0], y)
-                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                    if dico_piece[new_pos].player != self.player:
-                        if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                            l.append(new_pos)
-                    break
-                else:
-                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append(new_pos)
+        for y in range(pos[1] + 1, 9):
+            new_pos = (pos[0], y)
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append(new_pos)
+                break
+            else:
+                #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                l.append(new_pos)
 
-            for y in range(pos[1] - 1, 0, -1):
-                new_pos = (pos[0], y)
-                if there_is_something(dico_piece, new_pos[0], new_pos[1]):
-                    if dico_piece[new_pos].player != self.player:
-                        if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                            l.append(new_pos)
-                    break
-                else:
-                    if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
-                        l.append((pos[0], y))
+        for y in range(pos[1] - 1, 0, -1):
+            new_pos = (pos[0], y)
+            if there_is_something(dico_piece, new_pos[0], new_pos[1]):
+                if dico_piece[new_pos].player != self.player:
+                    #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                    l.append(new_pos)
+                break
+            else:
+                #if try_move(dico_piece, self.player, (pos, new_pos)) != self.player:
+                l.append((pos[0], y))
         return l
 
 
