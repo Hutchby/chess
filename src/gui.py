@@ -14,6 +14,7 @@ first_click = (-1, -1)
 intput_row = 10
 
 
+
 def set_buttons(main_w):
     ret = []
     for i in range(0, 8):
@@ -23,7 +24,7 @@ def set_buttons(main_w):
                 color_bg = "DarkOrange4"
             else:
                 color_bg = "white"
-            ret[i].append(Button(main_w, text='_', command=lambda a=i, b=j: onbuttonclick(a+1, b+1), bg=color_bg))
+            ret[i].append(Button(main_w, text='_', highlightthickness=3, borderwidth=4, command=lambda a=i, b=j: onbuttonclick(a+1, b+1), bg=color_bg))
             ret[i][j].config(height=3, width=6)
             ret[i][j].grid(row=8 - j, column=i + 1)
     return ret
@@ -48,7 +49,7 @@ def refresh_board():
             Label(window, text=i+1, background='white', anchor=CENTER).grid(row=0, column=8 - i)
             Label(window, text=i+1, background='white', anchor=CENTER).grid(row=8 - i, column=0)
         for j in range(0, 8):
-            board[i][j].config(text='')
+            board[i][j].config(text='', highlightbackground="lightgrey")
     # board[1][9].config(text="Turn: %d" % (player,), fg=col)
     Label(window, text="Turn: %d" % (src.game.player,), background='white', fg=col, anchor=CENTER).grid(row=intput_row, column=1)
     for pos in src.game.dict_pieces.keys():
@@ -61,6 +62,16 @@ def refresh_board():
         else:
             board[8 - pos[0]][8 - pos[1]].config(text=src.pieces.dict_pieces[pos].symbol, fg=col)
 
+cd delattr(colorise())
+def colorise(coords):
+    global board
+    for pos in coords:
+        print("print colorise", pos)
+        if src.game.player == -1:
+            board[pos[0] - 1][pos[1] - 1].config(highlightbackground="red")
+        else:
+            board[8 - pos[0]][8 - pos[1]].config(highlightbackground="red")
+
 
 def onbuttonclick(i, j):
     global fclick
@@ -71,7 +82,9 @@ def onbuttonclick(i, j):
     if len(fclick) == 0:
         if src.game.there_is_something(src.pieces.dict_pieces, i, j):
             fclick = (i, j)
-            print(src.pieces.dict_pieces[fclick].list_move(fclick, src.pieces.dict_pieces))
+            list = src.pieces.dict_pieces[fclick].list_move(fclick, src.pieces.dict_pieces)
+            colorise(list)
+
 
     else:
         src.game.turn(fclick, (i, j))
