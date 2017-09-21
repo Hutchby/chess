@@ -83,6 +83,7 @@ def onbuttonclick(i, j):
         if src.game.there_is_something(src.pieces.dict_pieces, i, j):
             fclick = (i, j)
             list = src.pieces.dict_pieces[fclick].list_move(fclick, src.pieces.dict_pieces)
+            print(list)
             colorise(list)
 
 
