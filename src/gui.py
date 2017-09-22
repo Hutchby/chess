@@ -62,7 +62,6 @@ def refresh_board():
         else:
             board[8 - pos[0]][8 - pos[1]].config(text=src.pieces.dict_pieces[pos].symbol, fg=col)
 
-cd delattr(colorise())
 def colorise(coords):
     global board
     for pos in coords:
@@ -77,7 +76,7 @@ def onbuttonclick(i, j):
     global fclick
     print("click :", i, j)
     if src.game.player == 1:
-        i = 9 - i
+        i = 9 - iF
         j = 9 - j
     if len(fclick) == 0:
         if src.game.there_is_something(src.pieces.dict_pieces, i, j):
